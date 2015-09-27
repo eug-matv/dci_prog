@@ -1,0 +1,17 @@
+del *.obj
+del *.swp
+del *.dsk
+del *.bak
+del *.~*
+del *.tds
+del *.il*
+del *.bpl
+del *.bpi
+del circle_obz\*.obj
+del circle_obz\*.~*
+del common\*.obj
+del common\*.~*
+del escout\*.obj
+del escout\*.~*
+del receive_from_com\*.obj
+del receive_from_com\*.~*

@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<!-- C++Builder XML Project -->
+<PROJECT>
+  <MACROS>
+    <VERSION value="BCB.06.00"/>
+    <PROJECT value="iko_aorl.exe"/>
+    <OBJFILES value="circle_obz\MainRBZ.obj circle_obz\airoplanelist.obj common\paketstruct.obj 
+      IKO_AORL.obj receive_from_com\comreadthread.obj 
+      circle_obz\WorkWithIniFiles.obj circle_obz\About.obj 
+      circle_obz\AnyTools.obj circle_obz\DrawObjectList.obj 
+      circle_obz\formulyars.obj circle_obz\in_and_log_thread.obj 
+      circle_obz\main_circle.obj circle_obz\options.obj 
+      common\win_str_dir_utils.obj common\soprforworkfile.obj 
+      common\sopr_doptools.obj circle_obz\LogFile.obj circle_obz\FrameTime.obj 
+      circle_obz\Navigation.obj circle_obz\Debug.obj common\kio_exeptions.obj 
+      circle_obz\MessageFrame.obj escout\sopr_aorl_1a.obj 
+      circle_obz\NutonIHord.obj circle_obz\probality.obj 
+      circle_obz\scan_comport.obj"/>
+    <RESFILES value="IKO_AORL.res"/>
+    <DEFFILE value=""/>
+    <RESDEPEN value="$(RESFILES) circle_obz\MainRBZ.dfm circle_obz\About.dfm 
+      circle_obz\options.dfm circle_obz\FrameTime.dfm circle_obz\Navigation.dfm 
+      circle_obz\Debug.dfm circle_obz\MessageFrame.dfm"/>
+    <LIBFILES value="hhctrl.lib"/>
+    <LIBRARIES value="rtl.lib vcl.lib"/>
+    <SPARELIBS value="vcl.lib rtl.lib"/>
+    <PACKAGES value="vcl.bpi rtl.bpi vclx.bpi bcbsmp.bpi dbrtl.bpi adortl.bpi vcldb.bpi 
+      qrpt.bpi bdertl.bpi vcldbx.bpi dsnap.bpi cds.bpi bdecds.bpi teeui.bpi 
+      teedb.bpi tee.bpi teeqr.bpi ibxpress.bpi visualclx.bpi visualdbclx.bpi 
+      vclie.bpi xmlrtl.bpi inet.bpi inetdbbde.bpi inetdbxpress.bpi inetdb.bpi 
+      nmfast.bpi bcbie.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
+      indy.bpi bcb2kaxserver.bpi"/>
+    <PATHCPP value=".;circle_obz;circle_obz;common;receive_from_com;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;common;common;common;circle_obz;circle_obz;circle_obz;circle_obz;common;circle_obz;escout;circle_obz;circle_obz;circle_obz"/>
+    <PATHPAS value=".;"/>
+    <PATHRC value=".;"/>
+    <PATHASM value=".;"/>
+    <DEBUGLIBPATH value="$(BCB)\lib\debug"/>
+    <RELEASELIBPATH value="$(BCB)\lib\release"/>
+    <LINKER value="ilink32"/>
+    <USERDEFINES value=""/>
+    <SYSDEFINES value="NO_STRICT"/>
+    <MAINSOURCE value="IKO_AORL.cpp"/>
+    <INCLUDEPATH value="escout;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;receive_from_com;common;circle_obz;&quot;C:\Program Files\Borland\CBuilder6\Projects&quot;;$(BCB)\include;$(BCB)\include\vcl"/>
+    <LIBPATH value="escout;&quot;D:\Program Files\Borland\CBuilder6\Projects&quot;;receive_from_com;common;circle_obz;&quot;C:\Program Files\Borland\CBuilder6\Projects&quot;;$(BCB)\lib\obj;$(BCB)\lib"/>
+    <WARNINGS value="-w-par"/>
+    <OTHERFILES value=""/>
+  </MACROS>
+  <OPTIONS>
+    <CFLAG1 value="-O2 -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -a8 -5 -b- -k- -vi -c -tW -tWM"/>
+    <PFLAGS value="-$Y- -$L- -$D- -$A8 -v -JPHNE -M"/>
+    <RFLAGS value=""/>
+    <AFLAGS value="/mx /w2 /zn"/>
+    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn"/>
+    <OTHERFILES value=""/>
+  </OPTIONS>
+  <LINKER>
+    <ALLOBJ value="c0w32.obj sysinit.obj $(OBJFILES)"/>
+    <ALLRES value="$(RESFILES)"/>
+    <ALLLIB value="$(LIBFILES) $(LIBRARIES) import32.lib cp32mt.lib"/>
+    <OTHERFILES value=""/>
+  </LINKER>
+  <FILELIST>
+      <FILE FILENAME="IKO_AORL.res" FORMNAME="" UNITNAME="IKO_AORL.res" CONTAINERID="ResTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\MainRBZ.cpp" FORMNAME="Form1" UNITNAME="MainRBZ" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\airoplanelist.cpp" FORMNAME="" UNITNAME="airoplanelist" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="common\paketstruct.cpp" FORMNAME="" UNITNAME="paketstruct" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="IKO_AORL.cpp" FORMNAME="" UNITNAME="IKO_AORL" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="receive_from_com\comreadthread.cpp" FORMNAME="" UNITNAME="comreadthread" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\WorkWithIniFiles.cpp" FORMNAME="" UNITNAME="WorkWithIniFiles.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\About.cpp" FORMNAME="AboutBox" UNITNAME="About" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\AnyTools.cpp" FORMNAME="" UNITNAME="AnyTools.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\DrawObjectList.cpp" FORMNAME="" UNITNAME="DrawObjectList.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\formulyars.cpp" FORMNAME="" UNITNAME="formulyars.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\in_and_log_thread.cpp" FORMNAME="" UNITNAME="in_and_log_thread.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\main_circle.cpp" FORMNAME="" UNITNAME="main_circle.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\options.cpp" FORMNAME="Form2" UNITNAME="options" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="common\win_str_dir_utils.cpp" FORMNAME="" UNITNAME="win_str_dir_utils.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="common\soprforworkfile.cpp" FORMNAME="" UNITNAME="soprforworkfile.cpp" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="common\sopr_doptools.cpp" FORMNAME="" UNITNAME="sopr_doptools" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\structs.h" FORMNAME="" UNITNAME="structs.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\LogFile.cpp" FORMNAME="" UNITNAME="LogFile" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\FrameTime.cpp" FORMNAME="FTime" UNITNAME="FrameTime" CONTAINERID="CCompiler" DESIGNCLASS="TFrame" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\Navigation.cpp" FORMNAME="Form4" UNITNAME="Navigation" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\Debug.cpp" FORMNAME="FDebug" UNITNAME="Debug" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="common\kio_exeptions.cpp" FORMNAME="" UNITNAME="kio_exeptions" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\MessageFrame.cpp" FORMNAME="FMessage" UNITNAME="MessageFrame" CONTAINERID="CCompiler" DESIGNCLASS="TFrame" LOCALCOMMAND=""/>
+      <FILE FILENAME="escout\sopr_aorl_1a.cpp" FORMNAME="" UNITNAME="sopr_aorl_1a" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\NutonIHord.cpp" FORMNAME="" UNITNAME="NutonIHord" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="IKOPreSetup.ini" FORMNAME="" UNITNAME="IKOPreSetup.ini" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\probality.cpp" FORMNAME="" UNITNAME="probality" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="hhctrl.lib" FORMNAME="" UNITNAME="hhctrl.lib" CONTAINERID="LibTool" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="circle_obz\scan_comport.cpp" FORMNAME="" UNITNAME="scan_comport" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
+      <FILE FILENAME="IKOUser.ini" FORMNAME="" UNITNAME="IKOUser.ini" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
+  </FILELIST>
+  <BUILDTOOLS>
+  </BUILDTOOLS>
+
+  <IDEOPTIONS>
+[Version Info]
+IncludeVerInfo=0
+AutoIncBuild=0
+MajorVer=1
+MinorVer=0
+Release=0
+Build=0
+Debug=0
+PreRelease=0
+Special=0
+Private=0
+DLL=0
+Locale=1049
+CodePage=1251
+
+[Version Info Keys]
+CompanyName=
+FileDescription=
+FileVersion=1.0.0.0
+InternalName=
+LegalCopyright=
+LegalTrademarks=
+OriginalFilename=
+ProductName=
+ProductVersion=1.0.0.0
+Comments=
+
+[Excluded Packages]
+c:\program files\borland\cbuilder6\Bin\dclite60.bpl=Borland Integrated Translation Environment
+
+[HistoryLists\hlIncludePath]
+Count=4
+Item0=escout;D:\Program Files\Borland\CBuilder6\Projects;receive_from_com;common;circle_obz;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item1=..\..\..\ToSvetlov\aorl-1a\src\circle_obz;escout;D:\Program Files\Borland\CBuilder6\Projects;receive_from_com;common;circle_obz;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item2=..\..\..\ToSvetlov\aorl-1a\src\circle_obz;escout;..\..\..\ToSvetlov\aorl-1a\src\escout;D:\Program Files\Borland\CBuilder6\Projects;receive_from_com;common;circle_obz;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl
+Item3=receive_from_com;common;circle_obz;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\include;$(BCB)\include\vcl
+
+[HistoryLists\hlLibraryPath]
+Count=3
+Item0=escout;D:\Program Files\Borland\CBuilder6\Projects;receive_from_com;common;circle_obz;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item1=..\..\..\ToSvetlov\aorl-1a\src\circle_obz;escout;..\..\..\ToSvetlov\aorl-1a\src\escout;D:\Program Files\Borland\CBuilder6\Projects;receive_from_com;common;circle_obz;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib
+Item2=receive_from_com;common;circle_obz;C:\Program Files\Borland\CBuilder6\Projects;$(BCB)\lib\obj;$(BCB)\lib
+
+[HistoryLists\hlDebugSourcePath]
+Count=1
+Item0=$(BCB)\source\vcl
+
+[Debugging]
+DebugSourceDirs=$(BCB)\source\vcl
+
+[Parameters]
+RunParams=
+Launcher=
+UseLauncher=0
+DebugCWD=
+HostApplication=
+RemoteHost=
+RemotePath=
+RemoteLauncher=
+RemoteCWD=
+RemoteDebug=0
+
+[Compiler]
+ShowInfoMsgs=0
+LinkDebugVcl=0
+LinkCGLIB=0
+  </IDEOPTIONS>
+</PROJECT>
