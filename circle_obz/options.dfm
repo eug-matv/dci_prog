@@ -27,7 +27,7 @@ object Form2: TForm2
     Left = 0
     Top = 0
     Width = 541
-    Height = 359
+    Height = 363
     ActivePage = TabSheet1
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
@@ -70,7 +70,7 @@ object Form2: TForm2
             Top = 69
             Width = 522
             Height = 56
-            Caption = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1099#1077' '#1072#1079#1080#1084#1091#1090#1072#1083#1100#1085#1099#1077' '#1083#1080#1085#1080#1080
+            Caption = 'Additional azimuth lines'
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -200,7 +200,7 @@ object Form2: TForm2
             Top = 8
             Width = 522
             Height = 56
-            Caption = #1054#1087#1086#1088#1085#1099#1077' '#1072#1079#1080#1084#1091#1090#1072#1083#1100#1085#1099#1077' '#1083#1080#1085#1080#1080
+            Caption = 'Reference azimuth lines'
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -425,7 +425,7 @@ object Form2: TForm2
             Top = 8
             Width = 522
             Height = 56
-            Caption = #1054#1087#1086#1088#1085#1099#1077'  '#1082#1086#1083#1100#1094#1072'  '#1076#1072#1083#1100#1085#1086#1089#1090#1080
+            Caption = 'Reference range circles'
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -555,7 +555,7 @@ object Form2: TForm2
             Top = 67
             Width = 522
             Height = 56
-            Caption = #1044#1086#1087#1086#1083#1085#1080#1090#1077#1083#1100#1085#1099#1077' '#1082#1086#1083#1100#1094#1072' '#1076#1072#1083#1100#1085#1086#1089#1090#1080
+            Caption = 'Additional range circles'
             Font.Charset = RUSSIAN_CHARSET
             Font.Color = clWindowText
             Font.Height = -13
@@ -790,7 +790,7 @@ object Form2: TForm2
         Top = 209
         Width = 525
         Height = 56
-        Caption = #1054#1073#1083#1072#1089#1090#1100' '#1084#1072#1089#1096#1090#1072#1073#1072
+        Caption = 'Scale area'
         Font.Charset = RUSSIAN_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
@@ -2083,7 +2083,7 @@ object Form2: TForm2
           Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          ItemHeight = 0
+          ItemHeight = 13
           ParentFont = False
           TabOrder = 0
           Text = 'CBPortName'
@@ -2108,7 +2108,7 @@ object Form2: TForm2
       ImageIndex = 4
       DesignSize = (
         533
-        331)
+        335)
       object GroupBox8: TGroupBox
         Left = 4
         Top = 8
@@ -2193,7 +2193,7 @@ object Form2: TForm2
   end
   object Panel1: TPanel
     Left = 0
-    Top = 359
+    Top = 363
     Width = 541
     Height = 38
     Align = alBottom
