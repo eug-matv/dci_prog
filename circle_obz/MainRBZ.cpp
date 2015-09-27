@@ -58,8 +58,8 @@
   catch (...)                                     \
   {                                               \
    Log_IKO=LOGFILE_IKO::GetStaticLog();           \
-   Log_IKO->OutCriticalError("Не известное исключение",  \
-            "Не известное исключение");           \
+   Log_IKO->OutCriticalError("Unknown exception",  \
+            "Unknown exception");           \
             StopWork();                           \
             ReleaseLibrary();                     \
             ExitProcess(1);                       \

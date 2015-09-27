@@ -394,7 +394,7 @@ long __stdcall  soprSaveToFileString(
 {
    short M,H;
    double S,Ostatok;
-   char Strka1[250]="СОПРОВОЖДЕНИЕ ВЫКЛ ";
+   char Strka1[250]=" ";
 //Расчитаем часы минуты и секунды
 
    switch(_PaketData.TipPaketa)

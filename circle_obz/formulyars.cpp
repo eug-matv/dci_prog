@@ -389,9 +389,9 @@ int formulyarTextOut(HDC DC,               //Дескриптер экрана
         }
         if(P<0)
         {
-          sprintf(Strka,"P(ПК)  ?  ");
+          sprintf(Strka,"P(PC)  ?  ");
         }else{
-          sprintf(Strka,"P(ПК) %4.2lf",P);
+          sprintf(Strka,"P(PC) %4.2lf",P);
         }
 
         TextOut(DC,Xt,Yt,Strka,MIN(10,N_of_Bukv));
@@ -419,9 +419,9 @@ int formulyarTextOut(HDC DC,               //Дескриптер экрана
       }
       if(P<0)
       {
-        sprintf(Strka,"P(ВК)  ?  ");
+        sprintf(Strka,"P(SC)  ?  ");
       }else{
-        sprintf(Strka,"P(ВК) %4.2lf",P);
+        sprintf(Strka,"P(SC) %4.2lf",P);
       }
 
       TextOut(DC,Xt,Yt,Strka,MIN(10,N_of_Bukv));

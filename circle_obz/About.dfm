@@ -2,7 +2,7 @@ object AboutBox: TAboutBox
   Left = 365
   Top = 344
   BorderStyle = bsNone
-  Caption = #1054' '#1087#1088#1086#1075#1088#1072#1084#1084#1077
+  Caption = 'About'
   ClientHeight = 210
   ClientWidth = 301
   Color = clBtnFace
@@ -168,7 +168,7 @@ object AboutBox: TAboutBox
     Top = 0
     Width = 301
     Height = 210
-    Hint = #1065#1077#1083#1095#1086#1082'  '#1084#1099#1096#1080' '#1080#1083#1080' '#1085#1072#1078#1072#1090#1080#1077' '#1082#1083#1072#1074#1080#1096#1080' Esc '#1079#1072#1082#1088#1086#1077#1090' '#1086#1082#1085#1086' '
+    Hint = 'ўелчок  мыши или нажатие клавиши Esc закроет окно '
     Align = alClient
     ParentShowHint = False
     Picture.Data = {
