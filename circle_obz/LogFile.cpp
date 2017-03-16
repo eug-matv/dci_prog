@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 #endif
 
+#include "lang_str.h"
 #include "LogFile.h"
 #include "win_str_dir_utils.h"
 
@@ -180,10 +181,18 @@ int LOGFILE_IKO::Start(
    }
 
 //Вывести в файл сообщение о том, что стартовал протокол
+#ifdef ENG_LANG
    fprintf(fp,
      ">>>   Start log : Time  %02d:%02d:%02d   Date %02d.%02d.%04d\n",  
     cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
     cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+#else
+   fprintf(fp,
+     ">>>   Старт протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d\n",  
+    cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
+    cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+   
+#endif
    LastDay=cur_tm->tm_mday;
    LastMonth=cur_tm->tm_mon+1;
    LastYear=cur_tm->tm_year+1900;
@@ -203,9 +212,15 @@ int LOGFILE_IKO::Stop()
    cur_tm=localtime(&cur_time);
    if(fp)
    {
+#ifdef ENG_LANG
       fprintf(fp,">>>   End log : Time  %02d:%02d:%02d   Date %02d.%02d.%04d\n",
   cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
   cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+#else
+fprintf(fp,">>>   Конец протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d\n",
+  cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
+  cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+#endif
       fprintf(fp,"-----------------------------------------------------------------\n\n\n");
       fclose(fp);
       fp=NULL;
@@ -263,9 +278,15 @@ int LOGFILE_IKO::NewDay(int Year, int Month, int Day,
 //           LeaveCriticalSection(&CS);
            return 0;
      }
+#ifdef ENG_LANG
      fprintf(fpVrem,
   ">>>Continued log   : Time  %02d:%02d:%02d   Date %02d.%02d.%04d",
      H,M,S,Day,Month,Year);
+#else
+     fprintf(fpVrem,
+  ">>>Продолжение лога   : время  %02d:%02d:%02d   дата %02d.%02d.%04d",
+     H,M,S,Day,Month,Year);
+#endif
      fclose(fp);
      fp=fpVrem;
      LastDay=Day;
@@ -351,7 +372,7 @@ int LOGFILE_IKO::Init_Out(void)
    char Strka[200];
    EnterCriticalSection(&CS);
    if(!fp)return 0;
-
+#ifdef ENG_LANG
    DataOut(1, "Options: ");
    sprintf(Strka,"\tScan of rate in seconds: %6.2lf с",init.fTempObzora);
    DataOut(0, Strka);
@@ -365,6 +386,22 @@ int LOGFILE_IKO::Init_Out(void)
 
    sprintf(Strka, "\tGetting data: port %s, baudrate: %d ",
       init.csComPortStr, init.iBaudRate);
+#else
+   DataOut(1, "Опции: ");
+   sprintf(Strka,"\tТемп обзора: %6.2lf с",init.fTempObzora);
+   DataOut(0, Strka);
+
+   if(init.iTail)sprintf(Strka,"\tЕсть след");
+   else sprintf(Strka,"\tНет следа");
+   DataOut(0, Strka);
+
+   sprintf(Strka,"\tИстория: %d обзоров", init.iTailLength);
+   DataOut(0, Strka);
+
+   sprintf(Strka, "\tПолучение данных: порт %s, скорость: %d бод",
+      init.csComPortStr, init.iBaudRate);
+   DataOut(0, Strka);
+#endif
    DataOut(0, Strka);
 
    DataOut(0, "-----------------------------------------------------------------");
@@ -385,7 +422,7 @@ int LOGFILE_IKO::OutCriticalError(
   char Strka[1200];
   EnterCriticalSection(&CS);
   if(!fp)return 0;
-
+#ifdef ENG_LANG
   DataOut(1, "\tCriticаl error");
   sprintf(Strka, "\tDescription of the error: %s",_TextIskl);
   DataOut(0, Strka);
@@ -409,6 +446,31 @@ int LOGFILE_IKO::OutCriticalError(
   }
 
   DataOut(0, "App will be closed!");
+#else
+  DataOut(1, "\tКритическая ошибка");
+  sprintf(Strka, "\tСуть ошибки: %s",_TextIskl);
+  DataOut(0, Strka);
+  if(_ModuleName&&_ModuleName[0]!=0)
+  {
+    sprintf(Strka, "\tИмя модуля, где ошибка была: %s",_ModuleName);
+    DataOut(0, Strka);
+  }
+
+  if(_ClassName&&_ClassName[0]!=0||
+     _MethodName&&_MethodName[0]!=0)
+  {
+    sprintf(Strka, "\tФункция с ошибкой: %s::%s",_ClassName,_MethodName);
+    DataOut(0, Strka);
+  }
+
+  if(_RegExName&&_RegExName[0]!=0)
+  {
+    sprintf(Strka, "\tВыражение: %s",_RegExName);
+    DataOut(0, Strka);
+  }
+
+  DataOut(0, "Приложение будет закрыто!");
+#endif
   DataOut(0, "-----------------------------------------------------------------");
   LeaveCriticalSection(&CS);
 
@@ -423,11 +485,17 @@ int LOGFILE_IKO::OutCriticalError(
    char Strka[200];
    EnterCriticalSection(&CS);
    if(!fp)return 0;
-
+#ifdef ENG_LANG
    DataOut(1, "\tCritical error");
    sprintf(Strka,"\t%s %s",ClassName,Message);
    DataOut(0, Strka);
    DataOut(0, "App will be closed!");
+#else
+   DataOut(1, "\tКритическая ошибка");
+   sprintf(Strka,"\t%s %s",ClassName,Message);
+   DataOut(0, Strka);
+   DataOut(0, "Приложение будет закрыто!");
+#endif
    DataOut(0, "-----------------------------------------------------------------");
    LeaveCriticalSection(&CS);
    return 1;
@@ -442,8 +510,11 @@ int LOGFILE_IKO::OutWorkInfo(char *Mess)    //Информация о выводе текущей обстан
   char Strka[1200];
   EnterCriticalSection(&CS);
   if(!fp)return 0;
-
+#ifdef ENG_LANG
   sprintf(Strka,"Work. %s",Mess);
+#else
+ sprintf(Strka,"Раб. %s",Mess);
+#endif
   DataOut(1, Strka);
   DataOut(0, "-----------------------------------------------------------------");
   LeaveCriticalSection(&CS);
@@ -458,8 +529,11 @@ int LOGFILE_IKO::OutNotCriticalError(char *Mess)  //Например, информация что не 
   char Strka[1200];
   EnterCriticalSection(&CS);
   if(!fp)return 0;
-
+#ifdef ENG_LANG
   sprintf(Strka, "Error %s",Mess);
+#else
+  sprintf(Strka, "Ошибка %s",Mess);
+#endif
   DataOut(1, Strka);
   DataOut(0, "-----------------------------------------------------------------");
   LeaveCriticalSection(&CS);
@@ -478,20 +552,35 @@ int LOGFILE_IKO::OutChangeOption(const initialization &_init)
 
   if(init.iTail!=_init.iTail)
   {
+#ifdef ENG_LANG
      if(!WasTextNewOption)
         DataOut(1, "\tChanged important settings: ");
      if(_init.iTail)sprintf(Strka,"\t Track up");
       else sprintf(Strka,"\tTrack down");
+#else
+     if(!WasTextNewOption)
+        DataOut(1, "\tИзменены важные опции: ");
+     if(_init.iTail)sprintf(Strka,"\t Был включен след");
+      else sprintf(Strka,"\tБыл отключен след");
+#endif
+
       DataOut(0, Strka);
      WasTextNewOption=1;
   }
   if(init.iTailLength!=_init.iTailLength)
   {
      if(!WasTextNewOption)
+#ifdef ENG_LANG
         DataOut(1, "\tChanged important settings: ");
 
       sprintf(Strka,"\t New size of scans: %d ",
             _init.iTailLength);
+#else
+        DataOut(1, "\tИзменены важные опции: ");
+
+      sprintf(Strka,"\t Новый размер истории: %d обзоров",
+            _init.iTailLength);
+#endif
       DataOut(0, Strka);
      WasTextNewOption=1;
   }
@@ -500,10 +589,17 @@ int LOGFILE_IKO::OutChangeOption(const initialization &_init)
      init.iBaudRate!=_init.iBaudRate)
   {
      if(!WasTextNewOption)
+#ifdef ENG_LANG
         DataOut(1, "\tChanged important settings: ");
 
      sprintf(Strka,"\t New settings of port: %s, %d baud",
       _init.csComPortStr, _init.iBaudRate);
+#else
+        DataOut(1, "\tИзменены важные опции: ");
+
+     sprintf(Strka,"\t Новые параметры COM-порта: %s, %d бод",
+      _init.csComPortStr, _init.iBaudRate);
+#endif
      DataOut(0, Strka);
      WasTextNewOption=1;
   }

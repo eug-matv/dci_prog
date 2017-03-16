@@ -31,6 +31,7 @@ __published:
         void __fastcall Image1Click(TObject *Sender);
         void __fastcall FormKeyDown(TObject *Sender, WORD &Key,
           TShiftState Shift);
+        void __fastcall FormCreate(TObject *Sender);
 private:
 public:
 	virtual __fastcall TAboutBox(TComponent* AOwner);

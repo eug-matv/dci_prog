@@ -230,6 +230,8 @@ __published:	// IDE-managed Components
         TComboBox *CBPortName;
         TLabel *Label6;
         TRadioGroup *RGChisloStopBits;
+        TCheckBox *cbFParity;
+        TRadioGroup *RGParityMode;
     void __fastcall Button2Click(TObject *Sender);
     void __fastcall EMaxdalnostKeyPress(TObject *Sender, char &Key);
     void __fastcall EMaxdalnostChange(TObject *Sender);

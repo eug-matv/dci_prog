@@ -5,6 +5,7 @@
 
 #include <stdlib.h>
 
+#include "lang_str.h"
 #include "kio_exeptions.h"
 #include "structs.h"
 #include "AnyTools.h"
@@ -387,13 +388,21 @@ int formulyarTextOut(HDC DC,               //Дескриптер экрана
         {
            P=OV->GetPropably(0);
         }
+#ifdef ENG_LANG
         if(P<0)
         {
           sprintf(Strka,"P(PC)  ?  ");
         }else{
           sprintf(Strka,"P(PC) %4.2lf",P);
         }
-
+#else
+        if(P<0)
+        {
+          sprintf(Strka,"P(ПК)  ?  ");
+        }else{
+          sprintf(Strka,"P(ПК) %4.2lf",P);
+        }
+#endif
         TextOut(DC,Xt,Yt,Strka,MIN(10,N_of_Bukv));
         Yt+=init.szTextOut;
         realN_of_Strka++;
@@ -417,13 +426,21 @@ int formulyarTextOut(HDC DC,               //Дескриптер экрана
       {
            P=OV->GetPropably(1);
       }
+#ifdef ENG_LANG
       if(P<0)
       {
         sprintf(Strka,"P(SC)  ?  ");
       }else{
         sprintf(Strka,"P(SC) %4.2lf",P);
       }
-
+#else
+      if(P<0)
+      {
+        sprintf(Strka,"P(ВК)  ?  ");
+      }else{
+        sprintf(Strka,"P(ВК) %4.2lf",P);
+      }
+#endif
       TextOut(DC,Xt,Yt,Strka,MIN(10,N_of_Bukv));
       Yt+=init.szTextOut;
       realN_of_Strka++;

@@ -125,6 +125,41 @@ void Load_INI_f(struct initialization *init_struct,
   init_struct->csFullComdisablePath[sizeof(init_struct->csFullComdisablePath)-1]=0;
 
 
+//Добавлено 16.03.2017
+//байт 15 , бит 7 для кодограммы УВД.
+   LOAD_FROM_INI("PROTOCOLS","uvdFuelControlNByte",
+        init_struct->uvdFuelControlNByte,"0");
+   if(init_struct->uvdFuelControlNByte < 0)
+      init_struct->uvdFuelControlNByte = 0;
+
+   if(init_struct->uvdFuelControlNByte > 17)
+      init_struct->uvdFuelControlNByte = 17;
+
+   LOAD_FROM_INI("PROTOCOLS","uvdFuelControlNBit",
+        init_struct->uvdFuelControlNBit,"7");
+   init_struct->uvdFuelControlNBit %= 8;
+
+   LOAD_FROM_INI("PROTOCOLS","uvdFuelControlValueOfTrue",
+                init_struct->uvdFuelControlValueOfTrue,"0");
+   init_struct->uvdFuelControlValueOfTrue %= 2; 
+
+
+   LOAD_FROM_INI("PROTOCOLS","uvdAltitudeControlNByte",
+        init_struct->uvdAltitudeControlNByte,"15");
+   if(init_struct->uvdAltitudeControlNByte < 0)
+      init_struct->uvdAltitudeControlNByte = 0;
+
+   if(init_struct->uvdAltitudeControlNByte > 17)
+      init_struct->uvdAltitudeControlNByte = 17;
+
+   LOAD_FROM_INI("PROTOCOLS","uvdAltitudeControlNBit",
+        init_struct->uvdAltitudeControlNBit,"7");
+   init_struct->uvdAltitudeControlNBit %= 8;
+   LOAD_FROM_INI("PROTOCOLS","uvdAltitudeControlValueOfTrue",
+                init_struct->uvdAltitudeControlValueOfTrue,"0");
+   init_struct->uvdAltitudeControlValueOfTrue %= 2;
+
+
   delete MemIniFile;
 
 //Получить текущую папке
@@ -239,6 +274,9 @@ void Load_INI_f(struct initialization *init_struct,
 
  LOAD_FROM_INI("COMPORT", "iBaudRate",init_struct->iBaudRate,"9600");
  LOAD_FROM_INI("COMPORT", "iStopBits", init_struct->iStopBits, "0");
+ LOAD_FROM_INI("COMPORT", "fParity",init_struct->fParity,"0");
+ LOAD_FROM_INI("COMPORT", "parityMode", init_struct->parityMode, "0");
+
 
 
  LOAD_FROM_INI("PLOTOUTS", "IsSaveSectorsToFile",init_struct->IsSaveSectorsToFile,"0");
@@ -340,6 +378,10 @@ void Save_INI_f(struct initialization *init_struct,
   MemIniFile->WriteString("COMPORT","ComN",init_struct->csComPortStr);
   SAVE_TO_INI("COMPORT", "iBaudRate",init_struct->iBaudRate);
   SAVE_TO_INI("COMPORT", "iStopBits",init_struct->iStopBits);
+  SAVE_TO_INI("COMPORT", "fParity",init_struct->fParity);
+  SAVE_TO_INI("COMPORT", "parityMode", init_struct->parityMode);
+
+
 
 //Сохраним данные о настроках сохранения в файле
   SAVE_TO_INI("PLOTOUTS", "IsSaveSectorsToFile",init_struct->IsSaveSectorsToFile);

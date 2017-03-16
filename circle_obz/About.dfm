@@ -160,6 +160,7 @@ object AboutBox: TAboutBox
     00000000000000000000000000000000000000000000}
   OldCreateOrder = True
   Position = poScreenCenter
+  OnCreate = FormCreate
   OnKeyDown = FormKeyDown
   PixelsPerInch = 96
   TextHeight = 13
@@ -168,7 +169,7 @@ object AboutBox: TAboutBox
     Top = 0
     Width = 301
     Height = 210
-    Hint = 'ўелчок  мыши или нажатие клавиши Esc закроет окно '
+    Hint = #1065#1077#1083#1095#1086#1082'  '#1084#1099#1096#1080' '#1080#1083#1080' '#1085#1072#1078#1072#1090#1080#1077' '#1082#1083#1072#1074#1080#1096#1080' Esc '#1079#1072#1082#1088#1086#1077#1090' '#1086#1082#1085#1086' '
     Align = alClient
     ParentShowHint = False
     Picture.Data = {
@@ -9353,7 +9354,7 @@ object AboutBox: TAboutBox
   object Label1: TLabel
     Left = 105
     Top = 36
-    Width = 83
+    Width = 82
     Height = 19
     Caption = '(PPI AORL)'
     Font.Charset = RUSSIAN_CHARSET
@@ -9367,7 +9368,7 @@ object AboutBox: TAboutBox
   object Label2: TLabel
     Left = 23
     Top = 12
-    Width = 207
+    Width = 206
     Height = 19
     Caption = 'Plane Position Indicator AORL'
     Font.Charset = RUSSIAN_CHARSET

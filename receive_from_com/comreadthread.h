@@ -67,6 +67,7 @@ void __fastcall Execute() - содержит код вторичного потока. Считывает данные с
 #define ERR_CONNECT_CREATEEVENT  5
 
 
+#include "structs.h"
 
 
 
@@ -92,9 +93,12 @@ private:
  long N_of_P;   //Число отметок типа P
  long N_of_U;   //Число УВД
  long N_of_R;   //Число RBS
+
+
+ initialization init; //Внесена 16.03.2017 Код инит
 protected:
         void __fastcall Execute();
-         __fastcall TComReadThread( );
+         __fastcall TComReadThread(const initialization &_init );
          int __fastcall Disconnect1();
 
 public:
@@ -106,9 +110,7 @@ public:
        static int iGetLastError; //Код последней ошибки
 
        static TComReadThread* Connect(
-                                   const char *portname,        //номер порта
-                                   int speed,     // скорость
-                                   int stopbits   //Число стопбит      
+                                const initialization &init
                              );  //Соединение с устройством
 
             //Отсоединение от устройства

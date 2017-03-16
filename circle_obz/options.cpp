@@ -4,6 +4,8 @@
 //#include <Qt.h>
 #pragma hdrstop
 
+#include "lang_str.h"
+
 #include "options.h"
 #include "structs.h"
 #include "MainRBZ.h"
@@ -45,27 +47,40 @@ void __fastcall TForm2::Button2Click(TObject *Sender)
  if (StrToInt(Form2->Edit9->Text)>3 || StrToInt(Form2->Edit10->Text)>3
  || StrToInt(Form2->Edit13->Text)>3 || StrToInt(Form2->Edit15->Text)>3
  || StrToInt(Form2->Edit19->Text)>3)
-  {ShowMessage("Check the options. Thickness of band lines should not exceed 3");
+  {ShowMessage(
+	LSTR("Check the options. Thickness of band lines should not exceed 3",
+"Проверьте правильность опций! Толщина линии не должна превышать 3")
+);
   return;}
 
 
   //Плоты
  if (StrToInt(Form2->Edit7->Text)>200)
-  {ShowMessage("Check the options. Track length shall not exceed 200");
+  {ShowMessage(
+LSTR("Check the options. Track length shall not exceed 200",
+"Проверьте правильность опций! Длина следа не должна превышать 200")
+);
   return;}
 
  if (StrToInt(Form2->RadCir1->Text)>10 || StrToInt(Form2->RadCir2->Text)>10 || StrToInt(Form2->RadCir3->Text)>10)
-  {ShowMessage("Check the options. The radius of the circle should not exceed 10");
+  {ShowMessage(LSTR("Check the options. The radius of the circle should not exceed 10",
+	"Проверьте правильность опций! Радиус окружности не должен превышать 10")
+);
   return;}
 
  if (StrToInt(Form2->WidthCir1->Text)>3 || StrToInt(Form2->WidthCir2->Text)>3 || StrToInt(Form2->WidthCir3->Text)>3)
-  {ShowMessage("Check the options. Thickness of band lines should not exceed 3");
+  {ShowMessage(LSTR("Check the options. Thickness of band lines should not exceed 3",
+	"Проверьте правильность опций! Толщина линии не должна превышать 3")
+);
   return;}
 
  //Формуляр
  if (StrToInt(Form2->SizeShrift->Text)>16)
 
-  {ShowMessage("Check the options. Acceptable font size from 4 to 16 points");
+  {ShowMessage(
+LSTR("Check the options. Acceptable font size from 4 to 16 points",
+"Проверьте правильность опций! Допустимый размер шрифта от 4 до 16 пт")
+);
   return;}
 
 
@@ -73,7 +88,10 @@ void __fastcall TForm2::Button2Click(TObject *Sender)
  if  (StrToInt(Form2->fHeight->Text)>500
    || StrToInt(Form2->fWidth->Text)>500 )
 
-  {ShowMessage("Check the options. Acceptable size of Label to 500x500");
+  {ShowMessage(
+LSTR("Check the options. Acceptable size of Label to 500x500",
+"Проверьте правильность опций! Допустимые размеры формуляря 500х500")
+);
   return;}
 
 
@@ -185,8 +203,21 @@ void __fastcall TForm2::Button2Click(TObject *Sender)
         break;
      }
   }
-
   strcpy(init.csComPortStr,tmp_port_name+k);
+
+
+  //Установим стоп биты
+  init.iStopBits = RGChisloStopBits->ItemIndex;
+
+//Установим контроль четности
+  if(cbFParity->Checked){
+    init.fParity = 1;
+  }else{
+    init.fParity = 0;
+  }
+
+//Установим режим паритета
+  init.parityMode = RGParityMode->ItemIndex;
 
 
 //Параметры вывода в файл
@@ -259,7 +290,9 @@ void __fastcall TForm2::SClrbackgroundMouseDown(TObject *Sender,
   }
   if(Edt==NULL)
   {
-     MessageBox(Handle, "Error with Components!", "Attention! Error!",MB_OK);
+     MessageBox(Handle, 
+LSTR("Error with Components!", "Ошибка с компонентами!") , 
+LSTR("Attention! Error!", "Внимание, ошибка!") ,MB_OK);
      return;
   }
 
@@ -310,7 +343,9 @@ void __fastcall TForm2::EClrbackgroundDblClick(TObject *Sender)
   }
   if(Sh==NULL)
   {
-      MessageBox(Handle, "Error with Components!", "Attention! Error!",MB_OK);
+      MessageBox(Handle, 
+LSTR("Error with Components!",  "Ошибка с компонентами!"),
+LSTR("Attention! Error!", "Внимание, ошибка!"), MB_OK);
      return;
   }
 
@@ -351,7 +386,9 @@ void __fastcall TForm2::EClrbackgroundChange(TObject *Sender)
   }
   if(Sh==NULL)
   {
-     MessageBox(Handle, "Error with Components!", "Attention! Error!",MB_OK);
+     MessageBox(Handle, 
+LSTR("Error with Components!","Ошибка с компонентами!") , 
+LSTR("Attention! Error!","Внимание, ошибка!"), MB_OK);
      return;
   }
   Sh->Brush->Color=StrToInt(String("0x")+Edt->Text.Trim());
@@ -526,7 +563,7 @@ void __fastcall TForm2::FormShow(TObject *Sender)
   }
 
   CBPortName->Text=String(init.csComPortStr).Trim();
-  CBPortName->ItemIndex=-1;      
+  CBPortName->ItemIndex=-1;
   for(i=0;i<slComPortsList->Count;i++)
   {
       if(CBPortName->Text==slComPortsList->Strings[i].Trim())
@@ -535,6 +572,15 @@ void __fastcall TForm2::FormShow(TObject *Sender)
         break;
       }
   }
+
+//Установим стоп биты
+  RGChisloStopBits->ItemIndex = init.iStopBits % 3;
+
+//Установим контроль четности
+  cbFParity->Checked = (init.fParity != 0);
+
+//Установим режим паритета
+  RGParityMode->ItemIndex = init.parityMode % 5;   
 
 
 //Сохранение данных
@@ -573,7 +619,75 @@ void __fastcall TForm2::RadCir1KeyPress(TObject *Sender, char &Key)
 
 void __fastcall TForm2::FormCreate(TObject *Sender)
 {
- Form2->Caption = "Options";
+ Form2->Caption = LSTR("Options", "Опции");
+
+#ifndef ENG_LANG
+	Form2->Caption="Опции";
+	Form2->TabSheet1->Caption="Азимутально-дальномерная шкала";
+	Form2->TabSheet7->Caption="Азимут";
+	Form2->GroupBox13->Caption="Дополнительные азимутальные линии";
+	Form2->Label46->Caption="Цвет";
+	Form2->Label47->Caption="Толщина";
+	Form2->Label48->Caption="Стиль";
+	Form2->GroupBox12->Caption="Опорные азимутальные линии";
+	Form2->Label43->Caption="Цвет";
+	Form2->Label44->Caption="Толщина";
+	Form2->Label45->Caption="Стиль";
+	Form2->Label1->Caption="Значения ";
+	Form2->Label2->Caption="Шаг азимута";
+	Form2->Label4->Caption="азимута";
+	Form2->TabSheet6->Caption="Дальность";
+	Form2->GroupBox10->Caption="Опорные  кольца  дальности";
+	Form2->Label27->Caption="Цвет";
+	Form2->Label28->Caption="Толщина";
+	Form2->Label39->Caption="Стиль";
+	Form2->GroupBox11->Caption="Дополнительные кольца дальности";
+	Form2->Label40->Caption="Цвет";
+	Form2->Label41->Caption="Стиль";
+	Form2->Label42->Caption="Толщина";
+	Form2->Label3->Caption="Значения";
+	Form2->Label5->Caption=" дальности";
+	Form2->GroupBox16->Caption="";
+	Form2->LClrbackground->Caption="Цвет фона";
+	Form2->GroupBox15->Caption="Область масштаба";
+	Form2->Label52->Caption="Цвет";
+	Form2->Label53->Caption="Толщина";
+	Form2->Label54->Caption="Стиль";
+	Form2->TabSheet2->Caption="Плоты";
+	Form2->GroupBox3->Caption="       Первичный плот";
+	Form2->Label7->Caption="Размер";
+	Form2->Label8->Caption="Цвет";
+	Form2->Label11->Caption="Толщина линии";
+	Form2->GroupBox4->Caption="       Вторичный плот";
+	Form2->Label13->Caption="Размер";
+	Form2->Label14->Caption="Цвет ";
+	Form2->Label17->Caption="Толщина линии";
+	Form2->GroupBox5->Caption="       Объединенные плоты";
+	Form2->Label19->Caption="Размер";
+	Form2->Label20->Caption="Цвет ";
+	Form2->Label23->Caption="Толщина линии";
+	Form2->GroupBox7->Caption="Параметры следа";
+	Form2->Label29->Caption="Длина следа";
+	Form2->TabSheet3->Caption="Формуляр";
+	Form2->GroupBox6->Caption="Параметры формуляра";
+	Form2->Label25->Caption="Размер шрифта";
+	Form2->Label26->Caption="Цвет";
+	Form2->Label38->Caption="Высота";
+	Form2->gbDataOutOfFormulyar->Caption="Отображать данные в формуляре";
+	Form2->TabSheet4->Caption="Параметры порта";
+	Form2->RGBaudrate->Caption="";
+	Form2->GBPort->Caption="Порт";
+	Form2->Label6->Caption="Имя порта";
+	Form2->RGChisloStopBits->Caption="Число стоповых бит";
+	Form2->TabSheet5->Caption="Параметры сохранения в файл";
+	Form2->GroupBox8->Caption="Путь сохранения данных";
+	Form2->Button2->Caption="OK";
+	Form2->Button1->Caption="Отмена";
+	Form2->Button3->Caption="По умолчанию... ";
+        Form2->cbFParity->Caption="Контр.чётн.";
+        Form2->RGParityMode->Caption="Режим паритета";
+
+#endif
 }
 //---------------------------------------------------------------------------
 
@@ -669,7 +783,7 @@ void __fastcall TForm2::Button3Click(TObject *Sender)
  //Параметры порта
    if(CBPortName->Items->Count<1)
    {
-        CBPortName->Text=String("No port");
+        CBPortName->Text=String(LSTR("No port","Нет порта") );
         CBPortName->ItemIndex=-1;
    }else{
         CBPortName->ItemIndex=0;
@@ -682,12 +796,6 @@ void __fastcall TForm2::Button3Click(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
-
-
-
-
-
-
 
 
 

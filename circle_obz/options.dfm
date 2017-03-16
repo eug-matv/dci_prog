@@ -26,9 +26,9 @@ object Form2: TForm2
   object PageControl1: TPageControl
     Left = 0
     Top = 0
-    Width = 541
-    Height = 363
-    ActivePage = TabSheet1
+    Width = 533
+    Height = 359
+    ActivePage = TabSheet4
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
@@ -37,7 +37,7 @@ object Form2: TForm2
     Font.Style = [fsBold]
     MultiLine = True
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Azimuth-range scale'
@@ -50,7 +50,7 @@ object Form2: TForm2
       object PageControl2: TPageControl
         Left = 0
         Top = 0
-        Width = 533
+        Width = 525
         Height = 209
         ActivePage = TabSheet7
         Align = alTop
@@ -2093,12 +2093,35 @@ object Form2: TForm2
           Width = 193
           Height = 81
           Caption = 'Stop bits'
-          ItemIndex = 0
+          ItemIndex = 1
           Items.Strings = (
             '1 '
             '1.5'
             '2 ')
           TabOrder = 1
+        end
+        object cbFParity: TCheckBox
+          Left = 208
+          Top = 64
+          Width = 105
+          Height = 17
+          Caption = 'fParity'
+          TabOrder = 2
+        end
+        object RGParityMode: TRadioGroup
+          Left = 328
+          Top = 16
+          Width = 153
+          Height = 121
+          Caption = 'Parity scheme'
+          ItemIndex = 0
+          Items.Strings = (
+            'NOPARITY'
+            'ODDPARITY'
+            'EVENPARITY'
+            'MARKPARTITY'
+            'SPACEPARITY')
+          TabOrder = 3
         end
       end
     end
@@ -2106,8 +2129,8 @@ object Form2: TForm2
       Caption = 'Parameters of saving to file'
       ImageIndex = 4
       DesignSize = (
-        533
-        335)
+        525
+        331)
       object GroupBox8: TGroupBox
         Left = 4
         Top = 8
@@ -2192,13 +2215,13 @@ object Form2: TForm2
   end
   object Panel1: TPanel
     Left = 0
-    Top = 363
-    Width = 541
+    Top = 359
+    Width = 533
     Height = 38
     Align = alBottom
     TabOrder = 1
     DesignSize = (
-      541
+      533
       38)
     object Button2: TButton
       Left = 343

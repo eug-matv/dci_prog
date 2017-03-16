@@ -870,10 +870,15 @@ int TSoprSaveSession::Start(void)
 
 //Сделаем запись в файл.
 //Подготовим строку
+#ifdef ENG_LANG
   sprintf(StrokaOut,">>>   Start log : Time  %02d:%02d:%02d   Date %02d.%02d.%04d",    
    cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
    cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
-
+#else
+  sprintf(StrokaOut,">>>   Старт протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d",    
+   cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
+   cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+#endif
 //Проверим что надо добавить в строку
   if(bDataOutDOS)
   {
@@ -959,10 +964,15 @@ int  TSoprSaveSession::Stop(void)
   }
 //Сделаем запись в файл.
 //Подготовим строку
+#ifdef ENG_LANG
   sprintf(StrokaOut,">>>   End log : Time  %02d:%02d:%02d   Date %02d.%02d.%04d",
        cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
     cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
-
+#else
+  sprintf(StrokaOut,">>>   Конец протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d",
+       cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
+    cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+#endif
 //Проверим что надо добавить в строку
   if(bDataOutDOS)
   {
@@ -1071,10 +1081,15 @@ int TSoprSaveSession::SaveDataToFile(TPaketData &_PaketData)
     if(lFD==-1)return -4;
      //Сделаем запись в файл.
 //Подготовим строку
+#ifdef ENG_LANG
     sprintf(StrokaOut,">>>   Start log: Time  %02d:%02d:%02d   Date %02d.%02d.%04d",
       cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
       cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
-
+#else
+    sprintf(StrokaOut,">>>   Старт протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d",
+      cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
+      cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+#endif
 //Проверим что надо добавить в строку
        if(bDataOutDOS)
        {

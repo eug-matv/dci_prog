@@ -4,6 +4,8 @@
 #pragma hdrstop
 
 #include <math.h>
+#include "lang_str.h"
+
 #include "main_circle.h"
 #include "AnyTools.h"
 #include "kio_exeptions.h"
@@ -86,10 +88,16 @@ int TMainCircleOut::Start(
    if(init.iTail)iDlinaTail=init.iTailLength;
    else iDlinaTail=0;
    AL=new TAirplaneList(pntRLS, szArea1, init, dfMasshtab);
+
+#ifdef ENG_LANG  
    if(AL==NULL)
     throw EIkoException ("Memory allocation error",
      "main_circle.cpp","TMainCircleOut","Start","AL=new TAirplaneList(...");
-
+#else
+if(AL==NULL)
+    throw EIkoException ("Ошибка выделения памяти",
+     "main_circle.cpp","TMainCircleOut","Start","AL=new TAirplaneList(...");
+#endif
    N_of_smPrev=0;
    iPaintSelected=0;
 
@@ -113,9 +121,16 @@ int TMainCircleOut::Restart(void)
    if(!IsWork)return 0;
    if(AL)delete AL;
    AL=new TAirplaneList(pntRLS, szArea1, init, dfMasshtab);
+
+#ifdef ENG_LANG   
    if(AL==NULL)
     throw EIkoException ("Memory allocation error",
      "main_circle.cpp","TMainCircleOut","Restart","AL=new TAirplaneList(...");
+#else
+   if(AL==NULL)
+    throw EIkoException ("Ошибка выделения памяти",
+     "main_circle.cpp","TMainCircleOut","Restart","AL=new TAirplaneList(...");
+#endif
    N_of_PD_Bedstvie=0;
    
    ReinitializePaketData(); 
@@ -389,23 +404,41 @@ int TMainCircleOut::Paint(HWND hwnd,   //Дескриптер устройства - на экране
       Brush=CreateBrushIndirect(&lb);
       if(!Brush)
       {
+#ifdef ENG_LANG
 throw EIkoException ("Error graphical output",
 "main_circle.cpp","TMainCircleOut","Paint",
 "Brush=CreateBrushIndirect(&lb);");
+#else
+throw EIkoException ("Ошибка графического вывода",
+"main_circle.cpp","TMainCircleOut","Paint",
+"Brush=CreateBrushIndirect(&lb);");
+#endif
       }
       OldBrush=(HBRUSH)SelectObject(DCPreOutput,Brush);
       if(!OldBrush)
       {
+#ifdef ENG_LANG
 throw EIkoException ("Error graphical output",
 "main_circle.cpp","TMainCircleOut","Paint",
 "OldBrush=(HBRUSH)SelectObject(DCPreOutput,Brush);");
+#else
+throw EIkoException ("Ошибка графического вывода",
+"main_circle.cpp","TMainCircleOut","Paint",
+"OldBrush=(HBRUSH)SelectObject(DCPreOutput,Brush);");
+#endif
       }
       Pen=CreatePenIndirect(&(init.Scale));
       if(!Pen)
       {
+#ifdef ENG_LANG
 throw EIkoException ("Error graphical output",
 "main_circle.cpp","TMainCircleOut","Paint",
 "Pen=CreatePenIndirect(&(init.Scale));");
+#else
+throw EIkoException ("Ошибка графического вывода",
+"main_circle.cpp","TMainCircleOut","Paint",
+"Pen=CreatePenIndirect(&(init.Scale));");
+#endif
       }
 
       OldPen=(HPEN)SelectObject(DCPreOutput,Pen);
@@ -425,15 +458,27 @@ throw EIkoException ("Error graphical output",
       SetBkMode(DCPreOutput,OldMode);
       if(!SelectObject(DCPreOutput,OldPen))
       {
+#ifdef ENG_LANG
 throw EIkoException ("Error graphical output",
 "main_circle.cpp","TMainCircleOut","Paint",
 "if(!SelectObject(DCPreOutput,OldPen))");
+#else
+throw EIkoException ("Ошибка графического вывода",
+"main_circle.cpp","TMainCircleOut","Paint",
+"if(!SelectObject(DCPreOutput,OldBrush))");
+#endif
       }
       if(!SelectObject(DCPreOutput,OldBrush))
       {
+#ifdef ENG_LANG
 throw EIkoException ("Error graphical output",
 "main_circle.cpp","TMainCircleOut","Paint",
 "if(!SelectObject(DCPreOutput,OldBrush))");
+#else
+throw EIkoException ("Ошибка графического вывода",
+"main_circle.cpp","TMainCircleOut","Paint",
+"if(!SelectObject(DCPreOutput,OldBrush))");
+#endif
       }
       DeleteObject(Pen);
       DeleteObject(Brush);

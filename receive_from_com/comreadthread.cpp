@@ -4,6 +4,7 @@
 #include <vcl.h>
 #pragma hdrstop
 #include <stdio.h>
+#include <stdlib.h>
 #include "paketstruct.h"
 #include "comreadthread.h"
 #include "sopr_doptools.h"
@@ -32,9 +33,10 @@ int TComReadThread::iGetLastError=0; // од последней ошибки
 //      }
 //---------------------------------------------------------------------------
 
-__fastcall TComReadThread::TComReadThread()
+__fastcall TComReadThread::TComReadThread(const initialization &_init)
         : TThread(false)
 {
+  memcpy(&init, &_init, sizeof(_init));
   FreeOnTerminate=true;   //ќсвобождаем при записи
   dwError=0;
 }
@@ -236,18 +238,53 @@ loop:
                  PD[TI].Otmetka.lNomer=((paket[Indx+11])&0x0F)*10000+
                  ((paket[Indx+12])>>4)*1000+((paket[Indx+12])&0x0F)*100+
                  ((paket[Indx+13])>>4)*10+((paket[Indx+13])&0x0F);
-                 PD[TI].Otmetka.bVysota=true;
                  PD[TI].Otmetka.bAbsVysota=(bool)(paket[Indx+15]&0x80);
                  if((bool)(paket[Indx+15]&0x20))
                  {
-                        unsigned char tmp_uc[2]= {paket[Indx+16], (paket[Indx+15])|0xc0};
-                        PD[TI].Otmetka.lVysota=(long)(*((short*)(tmp_uc)));
+                 //ƒополнить единицами старший байт до inta
+                        unsigned char tmp_uc[4]= {paket[Indx+16],
+                          (paket[Indx+15])|0xc0, 0xFF,0xFF};
+                        PD[TI].Otmetka.lVysota=(long)(*((int*)(tmp_uc)));
                  }else{
-                     PD[TI].Otmetka.lVysota=(long)((short)((paket[Indx+15]&0x1F)<<8 | paket[Indx+16])); 
+                     PD[TI].Otmetka.lVysota=(long)((((unsigned short)paket[Indx+15]&0x1F)<<8 | paket[Indx+16]));
 
                 }
                  PD[TI].Otmetka.lVysota*=10;
-                 PD[TI].Otmetka.bOstatokTopliva=!((bool)(paket[Indx+14]&0x80));
+
+//ѕроверим достоверность определени€ остатка топлива.
+//параметры заданы в init.
+//init.uvdFuelControlNByte - номер байта (счита€ с 1) в инф.части пакета.
+//≈сли равен 0, то в пакете не ишетс€ информаци€ о достоверности - она считаетс€
+//достоверной. init.uvdFuelControlNBit - номер бита от 0 до 7.
+//init.uvdFuelControlValueOfTrue - значение бита, которое соответствует
+//достоверной информации об остатке топлива, равно 0 или 1
+                 if(init.uvdFuelControlNByte > 0){
+                        unsigned char fg =
+                 (paket[Indx+init.uvdFuelControlNByte-1] &
+              (1<<init.uvdFuelControlNBit))>>init.uvdFuelControlNBit;
+                        PD[TI].Otmetka.bOstatokTopliva=
+              (((int)fg) == init.uvdFuelControlValueOfTrue);
+                 }else{
+                        PD[TI].Otmetka.bOstatokTopliva = true;
+                 }
+
+//ѕроверим достоверность определени€ высоты.
+//параметры заданы в init.
+//init.uvdAltitudeControlNByte - номер байта (счита€ с 1) в инф.части пакета.
+//≈сли равен 0, то в пакете не ишетс€ информаци€ о достоверности - она считаетс€
+//достоверной. init.uvdAltitudeControlNBit - номер бита от 0 до 7.
+//init.uvdAltitudeControlValueOfTrue - значение бита, которое соответствует
+//достоверной информации о высоте, равно 0 или 1
+                 if(init.uvdAltitudeControlNByte > 0){
+                        unsigned char fg =
+                 (paket[Indx+init.uvdAltitudeControlNByte-1] &
+              (1<<init.uvdAltitudeControlNBit))>>init.uvdAltitudeControlNBit;
+                        PD[TI].Otmetka.bVysota=
+              (((int)fg) == init.uvdAltitudeControlValueOfTrue);
+                 }else{
+                        PD[TI].Otmetka.bVysota = true;
+                 }
+
                  PD[TI].Otmetka.lOstatokTopliva=(long)(paket[Indx+14]&0x0F);
                  PD[TI].Otmetka.lOstatokTopliva*=5;
                  if(PD[TI].Otmetka.lOstatokTopliva>100)PD[TI].Otmetka.lOstatokTopliva=100;
@@ -333,10 +370,11 @@ loop:
                 PD[TI].Otmetka.bAbsVysota=true;
                 if(paket[Indx+13]&0x20)
                 {
-                        unsigned char tmp_uc[2]= {paket[Indx+14], (paket[Indx+13])|0xc0};
-                        PD[TI].Otmetka.lVysota=(long)(*((short*)(tmp_uc)));
+                        unsigned char tmp_uc[4]= {paket[Indx+14],
+                        (paket[Indx+13])|0xc0,0xFF, 0xFF};
+                        PD[TI].Otmetka.lVysota=(long)(*((int*)(tmp_uc)));
                 }else{
-                     PD[TI].Otmetka.lVysota=(long)((short)((paket[Indx+13]&0x1F)<<8 | paket[Indx+14])); 
+                     PD[TI].Otmetka.lVysota=(long)((((unsigned short)paket[Indx+13]&0x1F)<<8 | paket[Indx+14])); 
                 }
                 PD[TI].Otmetka.lVysota*=10;
                 PD[TI].Otmetka.lOstatokTopliva=0;
@@ -459,9 +497,7 @@ End_while:
 скорости speed*/
 TComReadThread* TComReadThread::
                        Connect(
-                                   const char *portname,        //номер порта
-                                   int speed,    // скорость
-                                   int stopbits   //„исло стопбит
+                          const initialization &init
                               )  //—оединение с устройством
 {
    TComReadThread* CurThread;
@@ -474,7 +510,7 @@ TComReadThread* TComReadThread::
    iErrorConnect=0;
    iGetLastError=0;
    k=0; s=0;
-   strcpy(portname2,portname);
+   strcpy(portname2,init.csComPortStr);
    for(i=0;i<strlen(portname2);i++)
    {
         if(portname2[i]==' '||portname2[i]=='\t'||portname2[i]=='\\'||
@@ -525,16 +561,16 @@ TComReadThread* TComReadThread::
       return NULL;
    }
 
-   ComDCM.BaudRate = speed;                 //скорость
+   ComDCM.BaudRate = init.iBaudRate;        //скорость
    ComDCM.ByteSize = 8;                     //число бит данных
-   ComDCM.Parity = NOPARITY;                //бит паритета(до четности)
-   ComDCM.StopBits = stopbits%3;
+   ComDCM.Parity = init.parityMode % 5;        //бит паритета(до четности)
+   ComDCM.StopBits = init.iStopBits % 3;
    ComDCM.fAbortOnError = TRUE;             //выдает ошибку если битов в пакете не хватает
    ComDCM.fDtrControl = DTR_CONTROL_DISABLE;//сигнал готовности DTR выключен
    ComDCM.fRtsControl = RTS_CONTROL_DISABLE;//сигнал готовности RTS выключен
 //   ComDCM.fBinary = 0; // ?
     ComDCM.fBinary = 1; // ?
-   ComDCM.fParity = FALSE;
+   ComDCM.fParity = (init.fParity != 0);
    ComDCM.fInX = ComDCM.fOutX = FALSE;      //
    ComDCM.XonChar = 0;                      //фильтр символов
    ComDCM.XoffChar = 0xff;
@@ -566,7 +602,7 @@ TComReadThread* TComReadThread::
    Sleep(500);
 
 //ѕопроюе
-   CurThread=new TComReadThread;
+   CurThread=new TComReadThread(init);
    if(!CurThread)
    {
      iErrorConnect=ERR_CONNECT_CREATETHREAD;

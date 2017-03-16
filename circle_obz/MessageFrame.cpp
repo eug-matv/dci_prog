@@ -3,6 +3,7 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "lang_str.h"
 #include "MessageFrame.h"
 //---------------------------------------------------------------------------
 #pragma package(smart_init)

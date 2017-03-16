@@ -3,6 +3,8 @@
 #include <vcl.h>
 #pragma hdrstop
 
+#include "lang_str.h"
+
 #include "MainRBZ.h"
 #include "Navigation.h"
 
@@ -55,7 +57,9 @@ void __fastcall TForm4::FormHide(TObject *Sender)
 {
      Form1->ToolButton4->Down = false;
      Form1->ToolButton4->Tag=1;
-     Form1->ToolButton4->Hint ="Show the additional window Navigation";
+     Form1->ToolButton4->Hint =
+LSTR("Show the additional window Navigation",
+"Показать панель навигации");
         
 }
 //---------------------------------------------------------------------------

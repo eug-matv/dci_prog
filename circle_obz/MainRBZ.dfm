@@ -25,23 +25,23 @@ object Form1: TForm1
   OnResize = FormResize
   OnShow = FormShow
   DesignSize = (
-    712
-    503)
+    704
+    499)
   PixelsPerInch = 96
   TextHeight = 20
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 482
-    Width = 712
+    Top = 478
+    Width = 704
     Height = 21
     Panels = <>
     SimplePanel = False
   end
   object PanelUpravleniya: TPanel
-    Left = 650
+    Left = 642
     Top = 0
     Width = 62
-    Height = 482
+    Height = 478
     Align = alRight
     ParentShowHint = False
     ShowHint = True
@@ -50,7 +50,7 @@ object Form1: TForm1
       Left = 23
       Top = 1
       Width = 38
-      Height = 480
+      Height = 476
       Align = alRight
       ButtonHeight = 37
       ButtonWidth = 37

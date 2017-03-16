@@ -3,6 +3,8 @@
 #pragma hdrstop
 
 #include <math.h>
+
+#include "lang_str.h"
 #include "MainRBZ.h"
 #include "DrawObjectList.h"
 //#include "Crash_alarm.h"
@@ -58,8 +60,9 @@
   catch (...)                                     \
   {                                               \
    Log_IKO=LOGFILE_IKO::GetStaticLog();           \
-   Log_IKO->OutCriticalError("Unknown exception",  \
-            "Unknown exception");           \
+   Log_IKO->OutCriticalError(\
+LSTR("Unknown exception", "Не известное исключение"),  \
+LSTR("Unknown exception","Не известное исключение"));           \
             StopWork();                           \
             ReleaseLibrary();                     \
             ExitProcess(1);                       \
@@ -93,8 +96,10 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 
   if(!GetFullPathFileWithProgram("IKOUser.ini",UserIni,511))
   {
-     MessageBox(NULL,"Search error file IKOUser.ini. Maybe the path is too long.\n Check and run the program again",
-          "Error: TForm1::TForm1", MB_OK);
+     MessageBox(NULL,
+LSTR("Search error file IKOUser.ini. Maybe the path is too long.\n Check and run the program again",
+"Ошибка поиска IKOUser.ini. Возможно путь слишком длинный.\nПроверьте и запустите заново!"),
+LSTR("Error: TForm1::TForm1","Ошибка TForm1::TForm1"), MB_OK);
   //Ощибка
      Sleep(10000);
      ExitProcess(1);
@@ -102,8 +107,10 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 
   if(!GetFullPathFileWithProgram("IKOPreSetup.ini",PreSetupIni,511))
   {
-     MessageBox(NULL,"Search error file IKOPreSetup.ini. Maybe the path is too long.\n Check and run the program again",
-           "Error: TForm1::TForm1", MB_OK);
+     MessageBox(NULL,
+LSTR("Search error file IKOPreSetup.ini. Maybe the path is too long.\n Check and run the program again",
+"Ошибка поиска IKOPreSetup.ini. Возможно путь слишком длинный.\nПроверьте и запустите заново!"),
+LSTR("Error: TForm1::TForm1","Ошибка TForm1::TForm1"), MB_OK);
   //Ощибка
      Sleep(10000);
      ExitProcess(1);
@@ -111,8 +118,10 @@ __fastcall TForm1::TForm1(TComponent* Owner)
 
   if(!FileExists(PreSetupIni))
   {
-     MessageBox(NULL,"Search error file IKOPreSetup.ini, File not found.\nCheck and run the program again",
-           "Error: TForm1::TForm1", MB_OK);
+     MessageBox(NULL,
+LSTR("Search error file IKOPreSetup.ini, File not found.\nCheck and run the program again",
+"Ошибка поиска IKOPreSetup.ini - файл не найден.\nПроверьте и запустите заново"),
+LSTR("Error: TForm1::TForm1", "Ошибка TForm1::TForm1"), MB_OK);
      Sleep(10000);
      ExitProcess(1);
   }
@@ -220,9 +229,15 @@ int __fastcall TForm1::LoadControlLibrary()
      HM=LoadLibrary(init.NameDllFileEvent);
      if(!HM)
      {
+#ifdef ENG_LANG
         Strng=String("Error loading module ")+String(init.NameDllFileEvent);
 //        MessageBox(NULL,Strng.c_str(),"Ошибка загрузки библиотеки",MB_OK);
           FMessage1->ShowText("Error control!",Strng);
+#else
+        Strng=String("Ошибка загрузки ")+String(init.NameDllFileEvent);
+//        MessageBox(NULL,Strng.c_str(),"Ошибка загрузки библиотеки",MB_OK);
+          FMessage1->ShowText("Ошибка контроля!",Strng);
+#endif
           SetFMessage1Size();
         goto End_1;
      }
@@ -231,9 +246,15 @@ int __fastcall TForm1::LoadControlLibrary()
      {
         FreeLibrary(HM);
         HM=NULL;
+#ifdef ENG_LANG
         Strng=String("in the module ")+String(init.NameDllFileEvent);
         FMessage1->ShowText("Error control! Not found the InitEvent procedure",
                   Strng);
+#else
+        Strng=String("в модуле ")+String(init.NameDllFileEvent);
+        FMessage1->ShowText("Ошибка контроля. Не найдена процедура InitEvent",
+                  Strng);
+#endif
           SetFMessage1Size();
         goto End_1;
      }
@@ -243,9 +264,15 @@ int __fastcall TForm1::LoadControlLibrary()
      {
         FreeLibrary(HM);
         HM=NULL;
+#ifdef ENG_LANG
         Strng=String("in the module ")+String(init.NameDllFileEvent);
         FMessage1->ShowText("Error control! Not found the CloseEvent procedure",
                     Strng);
+#else
+        Strng=String("в модуле ")+String(init.NameDllFileEvent);
+        FMessage1->ShowText("Ощибка контроля. Не найдена процедура CloseEvent",
+                    Strng);
+#endif
           SetFMessage1Size();
         goto End_1;
      }
@@ -255,9 +282,15 @@ int __fastcall TForm1::LoadControlLibrary()
      {
         FreeLibrary(HM);
         HM=NULL;
+#ifdef ENG_LANG
         Strng=String("in the module ")+String(init.NameDllFileEvent);
         FMessage1->ShowText("Error control! Not found the EventSet procedure",
                     Strng);
+#else
+        Strng=String("в модуле ")+String(init.NameDllFileEvent);
+        FMessage1->ShowText("Ощибка контроля. Не найдена процедура EventSet",
+                    Strng);
+#endif
           SetFMessage1Size();
         goto End_1;
      }
@@ -405,14 +438,14 @@ void __fastcall TForm1::FormShow(TObject *Sender)
   if(init.IsOutFormulyar)
   {
     N18->Checked = true;
-    ToolButton2->Hint = "Hide Label" ;
+    ToolButton2->Hint = LSTR("Hide Label","Скрыть формуляр");
     ToolButton2->Tag = 0;
     ToolButton2->Down = true;
     ToolButton11->Enabled = true;
      N1->Enabled = true;
   }else{
     N18->Checked = false;
-    ToolButton2->Hint = "Show Label" ;
+    ToolButton2->Hint = LSTR("Show Label", "Отображать формуляр") ;
     ToolButton2->Tag = 1;
     ToolButton2->Down = false;
     ToolButton11->Enabled = false;
@@ -422,11 +455,11 @@ void __fastcall TForm1::FormShow(TObject *Sender)
   if(init.iRamkaFormulyar)
   {
    N1->Checked = true;
-   ToolButton11->Hint = "Hide Label frame";
+   ToolButton11->Hint = LSTR("Hide Label frame","Скрыть рамку формуляра");
    ToolButton11->Tag = 0;
    ToolButton11->Down = true;
   }else{ N1->Checked = false;
-   ToolButton11->Hint = "Show Label frame";
+   ToolButton11->Hint = LSTR("Show Label frame","Отображать рамку формуляра");
    ToolButton11->Tag = 1;
    ToolButton11->Down = false;
   }
@@ -437,13 +470,13 @@ void __fastcall TForm1::FormShow(TObject *Sender)
   if(init.iTail)
   {
      N19->Checked = true;
-     ToolButton6->Hint = "Don't show the track" ;
+     ToolButton6->Hint = LSTR("Don't show the track","Не выводить след") ;
      ToolButton6->Tag = 0;
      ToolButton6->Down = true;
 
   }else{
      N19->Checked = false;
-     ToolButton6->Hint = "Show the track" ;
+     ToolButton6->Hint = LSTR("Show the track","Выводить след") ;
      ToolButton6->Tag = 1;
      ToolButton6->Down = false;
   }
@@ -451,13 +484,15 @@ void __fastcall TForm1::FormShow(TObject *Sender)
    if (init.IsSoprovojdenie)
    {
      N20->Checked = true;
-     ToolButton10->Hint = "Disable tracking" ;
+     ToolButton10->Hint = LSTR("Disable tracking","Отключить сопровождение");
      ToolButton10->Tag = 0;
      ToolButton10->Down = true;
    }else{
      N20->Checked = false;
 //     ToolButton10->Hint = "Включить сопровождение" ;  //Закоментировано 2014.12.15
-     ToolButton10->Hint = "The opportunity tracking is disabled" ;
+     ToolButton10->Hint = 
+LSTR("The opportunity tracking is disabled",
+"Возможность сопровождения летательных средств отключена") ;
      ToolButton10->Tag = 1;
      ToolButton10->Down = false;
      ToolButton10->Enabled=false;
@@ -496,14 +531,17 @@ void __fastcall TForm1::FormShow(TObject *Sender)
     Ret=SSS.Start();
     if(Ret==-1)
     {
-      AnsiString Put=String("Not found directory ")+SSS.csPutKDannym+String(" to write data");
+#ifdef ENG_LANG      
+	  AnsiString Put=String("Not found directory ")+SSS.csPutKDannym+String(" to write data");
+#else
+      AnsiString Put=String("Не найден каталог ")+SSS.csPutKDannym+String(" для записи данных");
+#endif
       FMessage1->ShowText(Put);
       SetFMessage1Size();
     }
 
 //Запустим поток считывающий данные из ком порта
-    CRT=TComReadThread::Connect(init.csComPortStr,init.iBaudRate,
-                                init.iStopBits);
+    CRT=TComReadThread::Connect(init);
     if(!CRT)
     {
 //Проверим существование порта
@@ -519,10 +557,17 @@ void __fastcall TForm1::FormShow(TObject *Sender)
         }
         if(tmp_i>=0)
         {
+#ifdef ENG_LANG
                 AnsiString Put=String("Error opening port ")+String(init.csComPortStr);
                 if(FMessage1->Visible)FMessage1->Hide();
                 FMessage1->ShowText(Put,
                         "Change port settings or run the program ComDisable to disable the port");
+#else
+                AnsiString Put=String("Ошибка открытия порта ")+String(init.csComPortStr);
+                if(FMessage1->Visible)FMessage1->Hide();
+                FMessage1->ShowText(Put,
+                        "Измените настройки COM-порта или запустите COMDisable для отключения порта!");
+#endif
                  SetFMessage1Size();
                 MCO.NoPackets=3;
                 Log_IKO=LOGFILE_IKO::GetStaticLog();
@@ -530,11 +575,18 @@ void __fastcall TForm1::FormShow(TObject *Sender)
                 WasOutLogError=1;
                 FMessage1->BStartComdisable->Show();
         }else{
+#ifdef ENG_LANG
                 AnsiString Put=String("Error opening port ")+String(init.csComPortStr);
                 if(FMessage1->Visible)FMessage1->Hide();
                 FMessage1->ShowText(Put,
                         "The port is not detected. Try opening another port");
-                 SetFMessage1Size();
+#else
+				AnsiString Put=String("Ошибка открытия порта ")+String(init.csComPortStr);
+                if(FMessage1->Visible)FMessage1->Hide();
+                FMessage1->ShowText(Put,
+                        "Порт не обнаружен, попробуйте открыть другой порт!");				
+#endif               
+				  SetFMessage1Size();
                 MCO.NoPackets=2;
                 Log_IKO=LOGFILE_IKO::GetStaticLog();
                 if(Log_IKO)Log_IKO->OutNotCriticalError(Put.c_str());
@@ -577,10 +629,18 @@ void __fastcall TForm1::PaintTimerTimer(TObject *Sender)
           MCO.Paint(Handle,0,0);
           if(Ret==2)
           {
+#ifdef ENG_LANG
                 AnsiString Put=String("Error opening port ")+String(init.csComPortStr);
                 if(FMessage1->Visible)FMessage1->Hide();
                 FMessage1->ShowText(Put,
                         "The port is not detected. Try opening another port");
+#else
+                AnsiString Put=String("Ошибка открытия порта ")+String(init.csComPortStr);
+                if(FMessage1->Visible)FMessage1->Hide();
+                FMessage1->ShowText(Put,
+                        "Порт не обнаружен, попробуйте открыть другой порт!");
+#endif
+
                 SetFMessage1Size();
                   
                 if(!WasOutLogError)
@@ -608,7 +668,9 @@ void __fastcall TForm1::PaintTimerTimer(TObject *Sender)
           {
 //             AnsiString Put=String("Ошибка открытия порта ")+String(init.csComPortStr);
 //             if(FMessage1->Visible)FMessage1->Hide();
-             Put=String("No packets from port ")+String(init.csComPortStr);
+             Put=String(
+LSTR("No packets from port ", "Нет пакетов с порта "))+
+	String(init.csComPortStr);
              if(init.abuse_if_none)
              {
                FMessage1->ShowText(Put);
@@ -624,7 +686,7 @@ void __fastcall TForm1::PaintTimerTimer(TObject *Sender)
 //             FMessage1->Hide();
              if(WasOutLogError!=0)
              {
-               if(Log_IKO)Log_IKO->OutWorkInfo("Packets arrive");
+               if(Log_IKO)Log_IKO->OutWorkInfo(LSTR("Packets arrive","Пакеты поступают"));
                WasOutLogError=0;
              }
           }
@@ -751,7 +813,7 @@ void __fastcall TForm1::ToolButton2Click(TObject *Sender)
 {
    if (ToolButton2->Tag == 0)
    {N18->Checked = false;
-    ToolButton2->Hint = "Show Label" ;
+    ToolButton2->Hint = LSTR("Show Label", "Отображать формуляр")  ;
     ToolButton2->Tag = 1;
     ToolButton2->Down = false;
     ToolButton11->Enabled = false;
@@ -761,7 +823,7 @@ void __fastcall TForm1::ToolButton2Click(TObject *Sender)
    }
 else
    {N18->Checked = true;
-    ToolButton2->Hint = "Hide Label" ;
+    ToolButton2->Hint = LSTR("Hide Label", "Скрыть формуляр");
     ToolButton2->Tag = 0;
     ToolButton2->Down = true;
     init.IsOutFormulyar=1;
@@ -782,7 +844,7 @@ else
 void __fastcall TForm1::ToolButton2MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-       StatusBar1->SimpleText = "Show or hide Label";
+       StatusBar1->SimpleText = LSTR( "Show or hide Label","  Показать или скрыть формуляр") ;
 }
 //---------------------------------------------------------------------------
 
@@ -804,7 +866,7 @@ void __fastcall TForm1::ToolButton9MouseUp(TObject *Sender,
 void __fastcall TForm1::ToolButton9MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-    StatusBar1->SimpleText = "Scale down ";
+    StatusBar1->SimpleText = LSTR("Scale down ", "  Уменьшить масштаб") ;
     ToolButton9->ImageIndex = 6;
 }
 //---------------------------------------------------------------------------
@@ -812,7 +874,7 @@ void __fastcall TForm1::ToolButton9MouseDown(TObject *Sender,
 void __fastcall TForm1::ToolButton7MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-   StatusBar1->SimpleText = "  Scale up ";
+   StatusBar1->SimpleText = LSTR("  Scale up ","  Увеличить масштаб") ;
    ToolButton7->ImageIndex = 4;
 }
 //---------------------------------------------------------------------------
@@ -845,12 +907,15 @@ void __fastcall TForm1::ToolButton4Click(TObject *Sender)
  if (ToolButton4->Tag == 1)
    {ToolButton4->Down = true;
     Form4->Show();
-    ToolButton4->Hint = "Hide the additional window Navigation";
+    ToolButton4->Hint = LSTR("Hide the additional window Navigation",
+"Скрыть панель навигации");
     ToolButton4->Tag = 0;}
  else
    {ToolButton4->Down = false;
     Form4->Hide();
-    ToolButton4->Hint ="Show the additional window Navigation";
+    ToolButton4->Hint =
+LSTR("Show the additional window Navigation",
+"Показать панель навигации");
     ToolButton4->Tag = 1;}
 }
 //---------------------------------------------------------------------------
@@ -858,7 +923,9 @@ void __fastcall TForm1::ToolButton4Click(TObject *Sender)
 void __fastcall TForm1::ToolButton4MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-     StatusBar1->SimpleText = " Show or hide the additional window Navigation";
+     StatusBar1->SimpleText = 
+LSTR(" Show or hide the additional window Navigation",
+"  Показать или скрыть Панель навигации");
 }
 //---------------------------------------------------------------------------
 
@@ -886,7 +953,7 @@ void __fastcall TForm1::ToolButton1Click(TObject *Sender)
     ToolButton11->Visible = true; //Рамка формуляра
     ToolButton1->Down = true;
 
-    ToolButton1->Hint = "Hide Panel" ;
+    ToolButton1->Hint = LSTR("Hide Panel", "Скрыть панель") ;
     ToolButton1->Tag = 1;
    }
 else
@@ -902,7 +969,7 @@ else
     ToolButton10->Visible = false;
     ToolButton11->Visible = false;
     ToolButton1->Down = false;
-    ToolButton1->Hint = "Show Panel" ;
+    ToolButton1->Hint = LSTR("Show Panel","Показать панель")  ;
     ToolButton1->Tag = 0;}
 }
 //---------------------------------------------------------------------------
@@ -910,7 +977,8 @@ else
 void __fastcall TForm1::ToolButton1MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-    StatusBar1->SimpleText = "  Show or hide toolbar";
+    StatusBar1->SimpleText = 
+LSTR("  Show or hide toolbar", "  Показать или скрыть Панель инструментов") ;
 }
 //---------------------------------------------------------------------------
 
@@ -924,6 +992,50 @@ void __fastcall TForm1::ToolButton1MouseUp(TObject *Sender,
 void __fastcall TForm1::FormCreate(TObject *Sender)
 {
     int Ret;
+#ifndef ENG_LANG
+        Form1->Caption = "ИКО АОРЛ";
+        Form1->ToolButton1->Caption="";
+	Form1->ToolButton1->Hint="Скрыть панель";
+	Form1->ToolButton2->Caption="ToolButton2";
+	Form1->ToolButton2->Hint="Скрыть формуляр";
+	Form1->ToolButton11->Caption="ToolButton11";
+	Form1->ToolButton11->Hint="Показать или скрыть рамку формуляра";
+	Form1->ToolButton3->Caption="ToolButton3";
+	Form1->ToolButton3->Hint="Показать опции";
+	Form1->ToolButton4->Caption="ToolButton4";
+	Form1->ToolButton4->Hint="Показать панель навигации";
+	Form1->ToolButton10->Caption="ToolButton10";
+	Form1->ToolButton10->Hint="Показать или скрыть сопровождение";
+	Form1->ToolButton5->Caption="ToolButton5";
+	Form1->ToolButton5->Hint="Отменить изменение размера";
+	Form1->ToolButton6->Caption="ToolButton6";
+	Form1->ToolButton6->Hint="Отображать след";
+	Form1->ToolButton8->Caption="ToolButton8";
+	Form1->ToolButton8->Hint="Истинный масштаб";
+	Form1->ToolButton7->Caption="ToolButton7";
+	Form1->ToolButton7->Hint="Увеличить масштаб";
+	Form1->ToolButton9->Caption="ToolButton9";
+	Form1->ToolButton9->Hint="Уменьшить масштаб";
+	Form1->N13->Caption="Вид";
+	Form1->N15->Caption="Время и дата";
+	Form1->N14->Caption="Панель инструментов";
+	Form1->N19->Caption="След";
+	Form1->N20->Caption="Сопровождение";
+	Form1->N18->Caption="Формуляр";
+	Form1->N1->Caption="Рамка формуляра";
+	Form1->N2->Caption="Опции";
+	Form1->N8->Caption="Опции";
+	Form1->N9->Caption="Масштаб";
+	Form1->N10->Caption="Увеличить       Ctrl  +  \"+\"";
+	Form1->N11->Caption="Уменьшить      Ctrl  +  \"-\"";
+	Form1->N12->Caption="Истинный масштаб    F5";
+	Form1->N4->Caption="Помощь";
+	Form1->N5->Caption="Помощь по \"ИКО АОРЛ\"";
+	Form1->N6->Caption="О программе";
+
+#endif
+
+
 //-----Задаем параметры по умолчанию для кнопок на панели инструментов
     Form1->ToolButton1->Down =true;  // кнопка показать-скрыть панель инструментов
     Form1->ToolButton2->Down = true; //кнопка показать-скрыть формуляр
@@ -948,10 +1060,17 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
        HandleR=InitEvent(PreSetupIni);
        if(!HandleR)
        {
+#ifdef ENG_LANG
           AnsiString Strng=String("There is no object-events ")+
             String(init.SecuriryEventName);
           FMessage1->ShowText("Error Access Control",
                Strng);
+#else
+          AnsiString Strng=String("Нет такого объекта-события в системе как ")+
+            String(init.SecuriryEventName);
+          FMessage1->ShowText("Ошибка контроля доступа!",
+               Strng);
+#endif
           SetFMessage1Size();
           isErrorControl=1;
           return;
@@ -988,7 +1107,10 @@ void __fastcall TForm1::ToolButton3Click(TObject *Sender)
 //Если были изменения - надо сохранить их в Ини файле
 //Проверка, а не изменились ли данные по COM-порту
      if(strcmp(Form2->init.csComPortStr, init.csComPortStr)||
-        Form2->init.iBaudRate!=init.iBaudRate)State=1;
+        Form2->init.iBaudRate!=init.iBaudRate ||
+        Form2->init.fParity != init.fParity ||
+        Form2->init.parityMode != init.parityMode ||
+        Form2->init.iStopBits != init.iStopBits)State=1;
 
 
      memcpy(&init,&Form2->init,sizeof(init));
@@ -1006,8 +1128,7 @@ void __fastcall TForm1::ToolButton3Click(TObject *Sender)
        }
        MY_CATCH()
        LogFile_IKO->Stop();
-       CRT=TComReadThread::Connect(init.csComPortStr,init.iBaudRate,
-                                init.iStopBits);
+       CRT=TComReadThread::Connect(init);
        if(!CRT)
        {
            tmp_i=-1;
@@ -1022,10 +1143,17 @@ void __fastcall TForm1::ToolButton3Click(TObject *Sender)
         }
         if(tmp_i>=0)
         {
+#ifdef ENG_LANG
                 AnsiString Put=String("Error opening port ")+String(init.csComPortStr);
                 if(FMessage1->Visible)FMessage1->Hide();
                 FMessage1->ShowText(Put,
                         "Change port settings or run the program ComDisable to disable the port");
+#else
+				AnsiString Put=String("Ошибка открытия порта ")+String(init.csComPortStr);
+                if(FMessage1->Visible)FMessage1->Hide();
+                FMessage1->ShowText(Put,
+ "Измените настройки COM-порта или запустите COMDisable для отключения режима PNP для порта!");
+#endif
                  SetFMessage1Size();
                 MCO.NoPackets=3;
                 Log_IKO=LOGFILE_IKO::GetStaticLog();
@@ -1033,10 +1161,17 @@ void __fastcall TForm1::ToolButton3Click(TObject *Sender)
                 WasOutLogError=1;
                 FMessage1->BStartComdisable->Show();
         }else{
+#ifdef ENG_LANG
                 AnsiString Put=String("Error opening port ")+String(init.csComPortStr);
                 if(FMessage1->Visible)FMessage1->Hide();
                 FMessage1->ShowText(Put,
                         "The port is not detected. Try opening another port");
+#else
+                AnsiString Put=String("Ошибка открытия порта ")+String(init.csComPortStr);
+                if(FMessage1->Visible)FMessage1->Hide();
+                FMessage1->ShowText(Put,
+                        "Порт не обнаружен, попробуйте открыть другой порт!");
+#endif
                  SetFMessage1Size();
                 MCO.NoPackets=2;
                 Log_IKO=LOGFILE_IKO::GetStaticLog();
@@ -1070,14 +1205,14 @@ void __fastcall TForm1::ToolButton3Click(TObject *Sender)
      if(init.IsOutFormulyar)
      {
        N18->Checked = true;
-       ToolButton2->Hint = "Hide Label" ;
+       ToolButton2->Hint = LSTR("Hide Label","Скрыть формуляр")  ;
        ToolButton2->Tag = 0;
        ToolButton2->Down = true;
        ToolButton11->Enabled = true;
         N1->Enabled = true;
      }else{
        N18->Checked = false;
-       ToolButton2->Hint = "Show Label" ;
+       ToolButton2->Hint = LSTR("Show Label", "Отображать формуляр")  ;
        ToolButton2->Tag = 1;
        ToolButton2->Down = false;
        ToolButton11->Enabled = false;
@@ -1086,12 +1221,12 @@ void __fastcall TForm1::ToolButton3Click(TObject *Sender)
      if(init.iRamkaFormulyar)
      {
        N1->Checked = true;
-       ToolButton11->Hint = "Hide Label frame";
+       ToolButton11->Hint = LSTR("Hide Label frame", "Скрыть рамку формуляра") ;
        ToolButton11->Tag = 0;
        ToolButton11->Down = true;
      }else{
        N1->Checked = false;
-       ToolButton11->Hint = "Show Label frame";
+       ToolButton11->Hint = LSTR("Show Label frame","Отображать рамку формуляра") ;
        ToolButton11->Tag = 1;
        ToolButton11->Down = false;
      }
@@ -1099,24 +1234,24 @@ void __fastcall TForm1::ToolButton3Click(TObject *Sender)
      if(init.iTail)
      {
        N19->Checked = true;
-       ToolButton6->Hint = "Don't show the track" ;
+       ToolButton6->Hint = LSTR("Don't show the track", "Не выводить след")  ;
        ToolButton6->Tag = 0;
        ToolButton6->Down = true;
      }else{
        N19->Checked = false;
-       ToolButton6->Hint = "Show the track" ;
+       ToolButton6->Hint = LSTR("Show the track","Выводить след")  ;
        ToolButton6->Tag = 1;
        ToolButton6->Down = false;
      }
      if (init.IsSoprovojdenie)
      {
        N20->Checked = true;
-       ToolButton10->Hint = "Disable tracking" ;
+       ToolButton10->Hint = LSTR("Disable tracking", "Отключить сопровождение") ;
        ToolButton10->Tag = 0;
        ToolButton10->Down = true;
      }else{
        N20->Checked = false;
-       ToolButton10->Hint = "Enable tracking" ;
+       ToolButton10->Hint = LSTR("Enable tracking", "Включить сопровождение");
        ToolButton10->Tag = 1;
        ToolButton10->Down = false;
      }
@@ -1151,7 +1286,7 @@ void __fastcall TForm1::Timer1Timer(TObject *Sender)
 void __fastcall TForm1::ToolButton5MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-    StatusBar1->SimpleText = "Undo";
+    StatusBar1->SimpleText = LSTR("Undo", "  Отменить действие");
      ToolButton5->ImageIndex = 10;
 }
 //---------------------------------------------------------------------------
@@ -1280,7 +1415,7 @@ void __fastcall TForm1::ToolButton8Click(TObject *Sender)
 void __fastcall TForm1::ToolButton8MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-      StatusBar1->SimpleText = " Full scale";
+      StatusBar1->SimpleText = LSTR(" Full scale","  Истинный масштаб") ;
       ToolButton8->ImageIndex = 13;
 }
 //---------------------------------------------------------------------------
@@ -1288,7 +1423,8 @@ void __fastcall TForm1::ToolButton8MouseDown(TObject *Sender,
 void __fastcall TForm1::ToolButton6MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-      StatusBar1->SimpleText = "  Show or hide track";
+      StatusBar1->SimpleText = 
+LSTR("  Show or hide track","  Отображать или не отображать след") ;
 }
 //---------------------------------------------------------------------------
 
@@ -1299,7 +1435,8 @@ void __fastcall TForm1::ToolButton6MouseDown(TObject *Sender,
 void __fastcall TForm1::ToolButton10MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-      StatusBar1->SimpleText = "Show or hide tracking";
+      StatusBar1->SimpleText = 
+  LSTR("Show or hide tracking","  Показать или скрыть сопровождение") ;
 }
 //---------------------------------------------------------------------------
 
@@ -1399,7 +1536,7 @@ void __fastcall TForm1::ToolButton6Click(TObject *Sender)
    if (ToolButton6->Tag == 0)
    {
       N19->Checked = false;
-      ToolButton6->Hint = "Show track" ;
+      ToolButton6->Hint = LSTR("Show track", "Выводить след")  ;
       ToolButton6->Tag = 1;
       ToolButton6->Down = false;
 //Скроем формуляр
@@ -1408,7 +1545,7 @@ void __fastcall TForm1::ToolButton6Click(TObject *Sender)
    else
    {
       N19->Checked = true;
-      ToolButton6->Hint = "Do not show track" ;
+      ToolButton6->Hint = LSTR("Do not show track","Не выводить след")  ;
       ToolButton6->Tag = 0;
       ToolButton6->Down = true;
       init.iTail=1;
@@ -1448,7 +1585,8 @@ void __fastcall TForm1::Timer2Timer(TObject *Sender)
 void __fastcall TForm1::ToolButton11MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-        StatusBar1->SimpleText = "  Show or hide Label frame";
+        StatusBar1->SimpleText = LSTR("  Show or hide Label frame",
+"  Показать или скрыть рамку формуляра");
 }
 //---------------------------------------------------------------------------
 
@@ -1462,7 +1600,8 @@ void __fastcall TForm1::ToolButton11MouseUp(TObject *Sender,
 void __fastcall TForm1::ToolButton3MouseDown(TObject *Sender,
       TMouseButton Button, TShiftState Shift, int X, int Y)
 {
-        StatusBar1->SimpleText = "Show options";
+        StatusBar1->SimpleText = LSTR("Show options",
+"  Показать опции");
 }
 //---------------------------------------------------------------------------
 
@@ -1479,7 +1618,8 @@ void __fastcall TForm1::ToolButton11Click(TObject *Sender)
 {
 if (ToolButton11->Tag == 0)
    {N1->Checked = false;
-    ToolButton11->Hint = "Show Label frame" ;
+    ToolButton11->Hint = LSTR("Show Label frame",
+ "Отображать рамку формуляра");
     ToolButton11->Tag = 1;
     ToolButton11->Down = false;
 //Скроем формуляр
@@ -1487,7 +1627,8 @@ if (ToolButton11->Tag == 0)
    }
 else
    {N1->Checked = true;
-    ToolButton11->Hint = "Hide Label frame" ;
+    ToolButton11->Hint = LSTR("Hide Label frame",
+"Скрыть рамку формуляр");
     ToolButton11->Tag = 0;
     ToolButton11->Down = true;
     init.iRamkaFormulyar=1;
@@ -1526,13 +1667,13 @@ void __fastcall TForm1::ToolButton10Click(TObject *Sender)
    if (ToolButton10->Tag == 0)
    {
      N20->Checked = false;
-     ToolButton10->Hint = "Enable tracking" ;
+     ToolButton10->Hint = LSTR("Enable tracking","Включить сопровождение");
      ToolButton10->Tag = 1;
      ToolButton10->Down = false;
      init.IsSoprovojdenie=0;
    }else{
      N20->Checked = true;
-     ToolButton10->Hint = "Disable tracking" ;
+     ToolButton10->Hint = LSTR("Disable tracking","Отключить сопровождение")  ;
      ToolButton10->Tag = 0;
      ToolButton10->Down = true;
      init.IsSoprovojdenie=1;
@@ -1543,13 +1684,18 @@ void __fastcall TForm1::ToolButton10Click(TObject *Sender)
       if(IALDT)IALDT->Stop();
       if(CRT)CRT->Disconnect();
       LogFile_IKO->Stop();
-      CRT=TComReadThread::Connect(init.csComPortStr,init.iBaudRate,
-                                init.iStopBits);
+      CRT=TComReadThread::Connect(init);
       if(!CRT)
       {
+#ifdef ENG_LANG
           AnsiString Put=String("Error opening port  ")+String(init.csComPortStr);
           if(FMessage1->Visible)FMessage1->Hide();
           FMessage1->ShowText(Put, "Change port settings");
+#else
+          AnsiString Put=String("Ошибка открытия порта ")+String(init.csComPortStr);
+          if(FMessage1->Visible)FMessage1->Hide();
+          FMessage1->ShowText(Put, "Измените настройки COM-порта!");
+#endif
           SetFMessage1Size();
           Log_IKO=LOGFILE_IKO::GetStaticLog();
           if(Log_IKO)Log_IKO->OutNotCriticalError(Put.c_str());
@@ -1605,8 +1751,13 @@ void __fastcall TForm1::TreatExceptionInSecondThread(
          break;
 
          default:
+#ifdef ENG_LANG
            Log_IKO->OutCriticalError("No notable exception",  
             "No notable exception");           
+#else
+           Log_IKO->OutCriticalError("Не известное исключение! ",  
+            "Не известное исключение");           
+#endif
 
     }              
       
@@ -1671,14 +1822,20 @@ void __fastcall TForm1::FMessage1Button1Click(TObject *Sender)
                         Sleep(1000);
                         ExitWindowsEx(EWX_REBOOT,0);
                 }else{
+#ifdef ENG_LANG
                     MessageBox(NULL,
                 "Error starting program comdisable.exe. Perhaps wrongly set the program path comdisable.exe",
                   "Error starting program comdisable.exe",MB_OK);
-
+#else
+                    MessageBox(NULL,
+                "Ошибка запуска программы comdisable.exe. Вероятно, не правильно задан путь к comdisable.exe",
+                  "Ошибка запуска comdisable.exe",MB_OK);
+#endif
                 }
+
+
+
         }
-
-
 }
 //---------------------------------------------------------------------------
 
