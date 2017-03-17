@@ -126,38 +126,106 @@ void Load_INI_f(struct initialization *init_struct,
 
 
 //Добавлено 16.03.2017
-//байт 15 , бит 7 для кодограммы УВД.
+// 1. Поля битов для проверки достоверности УВД
+// 1.1 УВД проверка топлива
+// 1.1.1 номер байта УВД топлива
    LOAD_FROM_INI("PROTOCOLS","uvdFuelControlNByte",
         init_struct->uvdFuelControlNByte,"0");
    if(init_struct->uvdFuelControlNByte < 0)
       init_struct->uvdFuelControlNByte = 0;
-
    if(init_struct->uvdFuelControlNByte > 17)
       init_struct->uvdFuelControlNByte = 17;
 
+// 1.1.2 номер бита УВД топлива
    LOAD_FROM_INI("PROTOCOLS","uvdFuelControlNBit",
         init_struct->uvdFuelControlNBit,"7");
    init_struct->uvdFuelControlNBit %= 8;
 
+// 1.1.3 значение бита УВД топлива при достоверной инфо
    LOAD_FROM_INI("PROTOCOLS","uvdFuelControlValueOfTrue",
                 init_struct->uvdFuelControlValueOfTrue,"0");
-   init_struct->uvdFuelControlValueOfTrue %= 2; 
+   init_struct->uvdFuelControlValueOfTrue %= 2;
 
 
+// 1.2 УВД проверка высоты
+// 1.2.1 номер байта УВД высота
    LOAD_FROM_INI("PROTOCOLS","uvdAltitudeControlNByte",
         init_struct->uvdAltitudeControlNByte,"15");
    if(init_struct->uvdAltitudeControlNByte < 0)
       init_struct->uvdAltitudeControlNByte = 0;
-
    if(init_struct->uvdAltitudeControlNByte > 17)
       init_struct->uvdAltitudeControlNByte = 17;
 
+// 1.2.2 номер бита УВД  высота
    LOAD_FROM_INI("PROTOCOLS","uvdAltitudeControlNBit",
         init_struct->uvdAltitudeControlNBit,"7");
    init_struct->uvdAltitudeControlNBit %= 8;
+
+// 1.2.3 значения бита УВД при достоверной высоте
    LOAD_FROM_INI("PROTOCOLS","uvdAltitudeControlValueOfTrue",
                 init_struct->uvdAltitudeControlValueOfTrue,"0");
    init_struct->uvdAltitudeControlValueOfTrue %= 2;
+
+// 1.3 УВД проверка номера
+// 1.3.1 номер байта УВД номер
+   LOAD_FROM_INI("PROTOCOLS","uvdNumberControlNByte",
+        init_struct->uvdNumberControlNByte,"12");
+   if(init_struct->uvdNumberControlNByte < 0)
+      init_struct->uvdNumberControlNByte = 0;
+   if(init_struct->uvdNumberControlNByte > 17)
+      init_struct->uvdNumberControlNByte = 17;
+
+// 1.3.2 номер бита УВД номер
+   LOAD_FROM_INI("PROTOCOLS","uvdNumberControlNBit",
+        init_struct->uvdNumberControlNBit,"7");
+   init_struct->uvdNumberControlNBit %= 8;
+
+// 1.3.3. значение бита УВД при достоверном значении номера борта
+   LOAD_FROM_INI("PROTOCOLS","uvdNumberControlValueOfTrue",
+                init_struct->uvdNumberControlValueOfTrue,"0");
+   init_struct->uvdNumberControlValueOfTrue %= 2;
+
+
+// 2. Поля битов для проверки достоверности RBS
+// 2.1 Проверка высоты RBS
+// 2.1.1 Номер байта высоты RBS
+   LOAD_FROM_INI("PROTOCOLS","rbsAltitudeControlNByte",
+        init_struct->rbsAltitudeControlNByte,"14");
+   if(init_struct->rbsAltitudeControlNByte < 0)
+      init_struct->rbsAltitudeControlNByte = 0;
+   if(init_struct->rbsAltitudeControlNByte > 15)
+      init_struct->rbsAltitudeControlNByte = 15;
+
+
+// 2.1.2 Номер бита высоты RBS
+   LOAD_FROM_INI("PROTOCOLS","rbsAltitudeControlNBit",
+        init_struct->rbsAltitudeControlNBit,"7");
+   init_struct->rbsAltitudeControlNBit %= 8;
+
+// 2.1.3 Значение бита RBS при достоверной высоте
+   LOAD_FROM_INI("PROTOCOLS","rbsAltitudeControlValueOfTrue",
+                init_struct->rbsAltitudeControlValueOfTrue,"0");
+   init_struct->rbsAltitudeControlValueOfTrue %= 2;
+
+
+// 2.2 Проверка номера RBS
+// 2.2.1 Номер байта номер RBS
+   LOAD_FROM_INI("PROTOCOLS","rbsNumberControlNByte",
+        init_struct->rbsNumberControlNByte,"15");
+   if(init_struct->rbsNumberControlNByte < 0)
+      init_struct->rbsNumberControlNByte = 0;
+   if(init_struct->rbsNumberControlNByte > 15)
+      init_struct->rbsNumberControlNByte = 15;
+
+// 2.2.2 номер бита номер RBS
+   LOAD_FROM_INI("PROTOCOLS","rbsNumberControlNBit",
+        init_struct->rbsNumberControlNBit,"7");
+   init_struct->rbsNumberControlNBit %= 8;
+
+// 2.2.3 Значение бита RBS при достоверном номере
+   LOAD_FROM_INI("PROTOCOLS","rbsNumberControlValueOfTrue",
+                init_struct->rbsNumberControlValueOfTrue, "0");
+   init_struct->rbsNumberControlValueOfTrue %= 2;
 
 
   delete MemIniFile;

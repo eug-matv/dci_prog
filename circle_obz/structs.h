@@ -103,6 +103,40 @@ int uvdAltitudeControlValueOfTrue;
 
 
 
+//номер байта для получения значения достоверности высоты  для УВД
+//если равно 0, значение не анализируется
+int uvdNumberControlNByte;
+
+// номер бита для  отвечающий за достоверность высоты
+int uvdNumberControlNBit;
+
+// Значение бита определяющей достоверность 0 или 1
+int uvdNumberControlValueOfTrue;
+
+
+//номер байта для получения значения достоверности высоты  для УВД
+//если равно 0, значение не анализируется
+int rbsAltitudeControlNByte;
+
+// номер бита для  отвечающий за достоверность высоты
+int rbsAltitudeControlNBit;
+
+// Значение бита определяющей достоверность 0 или 1
+int rbsAltitudeControlValueOfTrue;
+
+
+
+//номер байта для получения значения достоверности высоты  для УВД
+//если равно 0, значение не анализируется
+int rbsNumberControlNByte;
+
+// номер бита для  отвечающий за достоверность высоты
+int rbsNumberControlNBit;
+
+// Значение бита определяющей достоверность 0 или 1
+int rbsNumberControlValueOfTrue;
+
+
 
 //Прописаны в Users.ini
 // Цвет  области отображения

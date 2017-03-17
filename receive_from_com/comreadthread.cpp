@@ -234,7 +234,28 @@ loop:
                  PD[TI].Otmetka.sKodB=(bool)(paket[Indx+15]& 0x40);
                  PD[TI].Otmetka.X = (long)((short)(paket[Indx+5]<<8 | paket[Indx+6]))*15;
                  PD[TI].Otmetka.Y = (long)((short)(paket[Indx+7]<<8 | paket[Indx+8]))*15;
-                 PD[TI].Otmetka.bNomer=!((bool)(paket[Indx+11]&0x80));
+
+
+
+//Проверим достоверность определения номера.
+//параметры заданы в init.
+//init.uvdNumberControlNByte - номер байта (считая с 1) в инф.части пакета.
+//Если равен 0, то в пакете не ишется информация о достоверности - она считается
+//достоверной. init.uvdNumberControlNBit - номер бита от 0 до 7.
+//init.uvdNumberControlValueOfTrue - значение бита, которое соответствует
+//достоверной информации о высоте, равно 0 или 1
+                 if(init.uvdNumberControlNByte > 0){
+                        unsigned char fg =
+                 (paket[Indx+init.uvdNumberControlNByte-1] &
+              (1<<init.uvdNumberControlNBit))>>init.uvdNumberControlNBit;
+                        PD[TI].Otmetka.bNomer =
+              (((int)fg) == init.uvdNumberControlValueOfTrue);
+                 }else{
+                        PD[TI].Otmetka.bNomer = true;
+                 }
+
+
+
                  PD[TI].Otmetka.lNomer=((paket[Indx+11])&0x0F)*10000+
                  ((paket[Indx+12])>>4)*1000+((paket[Indx+12])&0x0F)*100+
                  ((paket[Indx+13])>>4)*10+((paket[Indx+13])&0x0F);
@@ -279,7 +300,7 @@ loop:
                         unsigned char fg =
                  (paket[Indx+init.uvdAltitudeControlNByte-1] &
               (1<<init.uvdAltitudeControlNBit))>>init.uvdAltitudeControlNBit;
-                        PD[TI].Otmetka.bVysota=
+                        PD[TI].Otmetka.bVysota =
               (((int)fg) == init.uvdAltitudeControlValueOfTrue);
                  }else{
                         PD[TI].Otmetka.bVysota = true;
@@ -360,13 +381,51 @@ loop:
                 }
                 PD[TI].Otmetka.X = (long)((short)(paket[Indx+5]<<8 | paket[Indx+6]))*15;
                 PD[TI].Otmetka.Y = (long)((short)(paket[Indx+7]<<8 | paket[Indx+8]))*15;
-                PD[TI].Otmetka.bNomer=!((bool)(paket[Indx+11]&0x80));
+
+
+//Проверим достоверность определения номера.
+//параметры заданы в init.
+//init.rbsNumberControlNByte - номер байта (считая с 1) в инф.части пакета.
+//Если равен 0, то в пакете не ишется информация о достоверности - она считается
+//достоверной. init.rbsNumberControlNBit - номер бита от 0 до 7.
+//init.rbsNumberControlValueOfTrue - значение бита, которое соответствует
+//достоверной информации о высоте, равно 0 или 1
+                 if(init.rbsNumberControlNByte > 0){
+                        unsigned char fg =
+                 (paket[Indx+init.rbsNumberControlNByte-1] &
+              (1<<init.rbsNumberControlNBit))>>init.rbsNumberControlNBit;
+                        PD[TI].Otmetka.bNomer=
+              (((int)fg) == init.rbsNumberControlValueOfTrue);
+                 }else{
+                        PD[TI].Otmetka.bNomer = true;
+                 }
+
+
+
+
                 PD[TI].Otmetka.lNomer=
 (((((long)paket[Indx+11])&0x00000008)>>3)*4+((((long)paket[Indx+11])&0x00000004)>>2)*2+((((long)paket[Indx+11])&0x00000002)>>1))*1000+
 (((((long)paket[Indx+11])&0x00000001))*4   +((((long)paket[Indx+12])&0x00000080)>>7)*2+((((long)paket[Indx+12])&0x00000040)>>6))*100+
 (((((long)paket[Indx+12])&0x00000020)>>5)*4+((((long)paket[Indx+12])&0x00000010)>>4)*2+((((long)paket[Indx+12])&0x00000008)>>3))*10+
 (((((long)paket[Indx+12])&0x00000004)>>2)*4+(((paket[Indx+12])&0x00000002)>>1)*2+ (((long)paket[Indx+12])&0x00000001));
-                PD[TI].Otmetka.bVysota=!((bool)(paket[Indx+13]&0x80));
+
+//Проверим достоверность определения высоты.
+//параметры заданы в init.
+//init.rbsAltitudeControlNByte - номер байта (считая с 1) в инф.части пакета.
+//Если равен 0, то в пакете не ишется информация о достоверности - она считается
+//достоверной. init.rbsAltitudeControlNBit - номер бита от 0 до 7.
+//init.rbsAltitudeControlValueOfTrue - значение бита, которое соответствует
+//достоверной информации о высоте, равно 0 или 1
+                 if(init.rbsAltitudeControlNByte > 0){
+                        unsigned char fg =
+                 (paket[Indx+init.rbsAltitudeControlNByte-1] &
+              (1<<init.rbsAltitudeControlNBit))>>init.rbsAltitudeControlNBit;
+                        PD[TI].Otmetka.bVysota=
+              (((int)fg) == init.rbsAltitudeControlValueOfTrue);
+                 }else{
+                        PD[TI].Otmetka.bVysota = true;
+                 }
+
                 PD[TI].Otmetka.bAbsVysota=true;
                 if(paket[Indx+13]&0x20)
                 {
@@ -374,7 +433,7 @@ loop:
                         (paket[Indx+13])|0xc0,0xFF, 0xFF};
                         PD[TI].Otmetka.lVysota=(long)(*((int*)(tmp_uc)));
                 }else{
-                     PD[TI].Otmetka.lVysota=(long)((((unsigned short)paket[Indx+13]&0x1F)<<8 | paket[Indx+14])); 
+                     PD[TI].Otmetka.lVysota=(long)((((unsigned short)paket[Indx+13]&0x1F)<<8 | paket[Indx+14]));
                 }
                 PD[TI].Otmetka.lVysota*=10;
                 PD[TI].Otmetka.lOstatokTopliva=0;
