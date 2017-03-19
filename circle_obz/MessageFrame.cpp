@@ -13,6 +13,8 @@ TFMessage *FMessage;
 __fastcall TFMessage::TFMessage(TComponent* Owner)
         : TFrame(Owner)
 {
+        BStartComdisable->Caption = LSTR("Start program ComDisable",
+        "Запустить программу COMDisable");
 }
 //---------------------------------------------------------------------------
 
@@ -38,6 +40,7 @@ void __fastcall TFMessage::ShowText(
     BStartComdisable->Hide();
    Show();
 }
+
 
 
 

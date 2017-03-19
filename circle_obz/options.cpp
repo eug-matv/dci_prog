@@ -622,8 +622,8 @@ void __fastcall TForm2::FormCreate(TObject *Sender)
  Form2->Caption = LSTR("Options", "Опции");
 
 #ifndef ENG_LANG
-	Form2->Caption="Опции";
-	Form2->TabSheet1->Caption="Азимутально-дальномерная шкала";
+        Form2->Caption="Опции";
+        Form2->TabSheet1->Caption="Азимутально-дальномерная шкала";
 	Form2->TabSheet7->Caption="Азимут";
 	Form2->GroupBox13->Caption="Дополнительные азимутальные линии";
 	Form2->Label46->Caption="Цвет";
@@ -668,12 +668,23 @@ void __fastcall TForm2::FormCreate(TObject *Sender)
 	Form2->Label23->Caption="Толщина линии";
 	Form2->GroupBox7->Caption="Параметры следа";
 	Form2->Label29->Caption="Длина следа";
+	Form2->CheckBox2->Caption="Отображать след";
 	Form2->TabSheet3->Caption="Формуляр";
 	Form2->GroupBox6->Caption="Параметры формуляра";
 	Form2->Label25->Caption="Размер шрифта";
 	Form2->Label26->Caption="Цвет";
 	Form2->Label38->Caption="Высота";
+	Form2->CheckBox1->Caption="Выводить рамку";
 	Form2->gbDataOutOfFormulyar->Caption="Отображать данные в формуляре";
+	Form2->cbNomer->Caption="Номер борта";
+	Form2->cbVysota->Caption="Высота";
+	Form2->cbOstatokTopliva->Caption="Остаток топлива";
+	Form2->cbTime->Caption="Время";
+	Form2->cbVeroyatnostPervKanal->Caption="Вероятность обнаружения по ПК";
+	Form2->cbSkorost->Caption="Скорость";
+	Form2->cbAzimutDalnost->Caption="Азимут и дальность";
+	Form2->cbVeroyatnostVtorKanal->Caption="Вероятность обнаружения по ВК";
+	Form2->cbFormulyar->Caption="Отображать формуляр";
 	Form2->TabSheet4->Caption="Параметры порта";
 	Form2->RGBaudrate->Caption="";
 	Form2->GBPort->Caption="Порт";
@@ -681,11 +692,13 @@ void __fastcall TForm2::FormCreate(TObject *Sender)
 	Form2->RGChisloStopBits->Caption="Число стоповых бит";
 	Form2->TabSheet5->Caption="Параметры сохранения в файл";
 	Form2->GroupBox8->Caption="Путь сохранения данных";
+	Form2->CB_IsSaveDataFile->Caption="Сохранять данные";
+	Form2->CB_IsFilterDataToFile->Caption="Фильтр";
+	Form2->CB_IsSaveSectorsToFile->Caption="Сохранять данные о полученных секторах";
 	Form2->Button2->Caption="OK";
 	Form2->Button1->Caption="Отмена";
 	Form2->Button3->Caption="По умолчанию... ";
-        Form2->cbFParity->Caption="Контр.чётн.";
-        Form2->RGParityMode->Caption="Режим паритета";
+
 
 #endif
 }
@@ -796,6 +809,7 @@ void __fastcall TForm2::Button3Click(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
+
 
 
 

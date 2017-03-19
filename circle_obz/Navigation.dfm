@@ -25,7 +25,7 @@ object Form4: TForm4
   object GroupBox5: TGroupBox
     Left = 0
     Top = 0
-    Width = 168
+    Width = 160
     Height = 104
     Align = alClient
     Font.Charset = DEFAULT_CHARSET

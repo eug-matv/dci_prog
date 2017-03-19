@@ -28,7 +28,7 @@ object Form2: TForm2
     Top = 0
     Width = 533
     Height = 359
-    ActivePage = TabSheet4
+    ActivePage = TabSheet1
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
@@ -37,7 +37,7 @@ object Form2: TForm2
     Font.Style = [fsBold]
     MultiLine = True
     ParentFont = False
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Azimuth-range scale'
@@ -2082,7 +2082,7 @@ object Form2: TForm2
           Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          ItemHeight = 13
+          ItemHeight = 0
           ParentFont = False
           TabOrder = 0
           Text = 'CBPortName'

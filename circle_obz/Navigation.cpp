@@ -48,7 +48,8 @@ void __fastcall TForm4::SpeedButton12Click(TObject *Sender)
 
 void __fastcall TForm4::FormCreate(TObject *Sender)
 {
-GroupBox5->Tag = 1;
+        GroupBox5->Tag = 1;
+        Caption = LSTR("Navigation", "Навигация");
 }
 //---------------------------------------------------------------------------
 
@@ -80,4 +81,5 @@ void __fastcall TForm4::FormKeyDown(TObject *Sender, WORD &Key,
    Form4->Close();
 }
 //---------------------------------------------------------------------------
+
 
