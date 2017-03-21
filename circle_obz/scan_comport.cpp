@@ -4,6 +4,7 @@
 #pragma hdrstop
 
 #include "scan_comport.h"
+#include "lang_str.h"
 
 //---------------------------------------------------------------------------
 
@@ -30,11 +31,11 @@ int scanComPorts(TStringList *comPortsList, TStringList *statesList)
                    if(iGetLastError==ERROR_ACCESS_DENIED)
                    {
                         comPortsList->Add(com_port);
-                        statesList->Add("Buzy");
+                        statesList->Add(LSTR("Buzy", "Занят"));
                    }
             }else{
                    comPortsList->Add(com_port);
-                   statesList->Add("Free");
+                   statesList->Add(LSTR("Free", "Свободен"));
                    CloseHandle(hCom);
             }
         }

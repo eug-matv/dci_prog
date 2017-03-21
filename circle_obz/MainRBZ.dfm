@@ -326,6 +326,7 @@ object Form1: TForm1
       object N20: TMenuItem
         Caption = 'Tracking '
         Checked = True
+        Enabled = False
         ShortCut = 49235
         OnClick = ToolButton10Click
       end

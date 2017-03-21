@@ -150,7 +150,6 @@ __published:	// IDE-managed Components
         TUpDown *UpDown16;
         TUpDown *UpDown17;
         TCheckBox *cbFormulyar;
-        TStaticText *StaticText2;
         TGroupBox *GroupBox7;
         TCheckBox *CheckBox2;
         TLabel *Label29;
@@ -232,6 +231,7 @@ __published:	// IDE-managed Components
         TRadioGroup *RGChisloStopBits;
         TCheckBox *cbFParity;
         TRadioGroup *RGParityMode;
+        TStaticText *StaticText2;
     void __fastcall Button2Click(TObject *Sender);
     void __fastcall EMaxdalnostKeyPress(TObject *Sender, char &Key);
     void __fastcall EMaxdalnostChange(TObject *Sender);

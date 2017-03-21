@@ -1,6 +1,6 @@
 object Form2: TForm2
-  Left = 291
-  Top = 118
+  Left = 627
+  Top = 84
   Width = 549
   Height = 435
   BorderIcons = [biSystemMenu]
@@ -2032,20 +2032,6 @@ object Form2: TForm2
         ParentFont = False
         TabOrder = 0
       end
-      object StaticText2: TStaticText
-        Left = 6
-        Top = 154
-        Width = 73
-        Height = 20
-        Caption = 'Read rate'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -13
-        Font.Name = 'MS Sans Serif'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 1
-      end
       object GBPort: TGroupBox
         Left = 5
         Top = 8
@@ -2058,7 +2044,7 @@ object Form2: TForm2
         Font.Name = 'MS Sans Serif'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 1
         object Label6: TLabel
           Left = 8
           Top = 24
@@ -2082,7 +2068,7 @@ object Form2: TForm2
           Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          ItemHeight = 0
+          ItemHeight = 13
           ParentFont = False
           TabOrder = 0
           Text = 'CBPortName'
@@ -2103,15 +2089,21 @@ object Form2: TForm2
         object cbFParity: TCheckBox
           Left = 208
           Top = 64
-          Width = 105
+          Width = 121
           Height = 17
           Caption = 'fParity'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -13
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          ParentFont = False
           TabOrder = 2
         end
         object RGParityMode: TRadioGroup
           Left = 328
           Top = 16
-          Width = 153
+          Width = 177
           Height = 121
           Caption = 'Parity scheme'
           ItemIndex = 0
@@ -2123,6 +2115,20 @@ object Form2: TForm2
             'SPACEPARITY')
           TabOrder = 3
         end
+      end
+      object StaticText2: TStaticText
+        Left = 6
+        Top = 154
+        Width = 73
+        Height = 20
+        Caption = 'Read rate'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -13
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
+        TabOrder = 2
       end
     end
     object TabSheet5: TTabSheet

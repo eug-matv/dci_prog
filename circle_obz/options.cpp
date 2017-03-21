@@ -619,87 +619,94 @@ void __fastcall TForm2::RadCir1KeyPress(TObject *Sender, char &Key)
 
 void __fastcall TForm2::FormCreate(TObject *Sender)
 {
- Form2->Caption = LSTR("Options", "Опции");
+ Caption = LSTR("Options", "Опции");
 
 #ifndef ENG_LANG
-        Form2->Caption="Опции";
-        Form2->TabSheet1->Caption="Азимутально-дальномерная шкала";
-	Form2->TabSheet7->Caption="Азимут";
-	Form2->GroupBox13->Caption="Дополнительные азимутальные линии";
-	Form2->Label46->Caption="Цвет";
-	Form2->Label47->Caption="Толщина";
-	Form2->Label48->Caption="Стиль";
-	Form2->GroupBox12->Caption="Опорные азимутальные линии";
-	Form2->Label43->Caption="Цвет";
-	Form2->Label44->Caption="Толщина";
-	Form2->Label45->Caption="Стиль";
-	Form2->Label1->Caption="Значения ";
-	Form2->Label2->Caption="Шаг азимута";
-	Form2->Label4->Caption="азимута";
-	Form2->TabSheet6->Caption="Дальность";
-	Form2->GroupBox10->Caption="Опорные  кольца  дальности";
-	Form2->Label27->Caption="Цвет";
-	Form2->Label28->Caption="Толщина";
-	Form2->Label39->Caption="Стиль";
-	Form2->GroupBox11->Caption="Дополнительные кольца дальности";
-	Form2->Label40->Caption="Цвет";
-	Form2->Label41->Caption="Стиль";
-	Form2->Label42->Caption="Толщина";
-	Form2->Label3->Caption="Значения";
-	Form2->Label5->Caption=" дальности";
-	Form2->GroupBox16->Caption="";
-	Form2->LClrbackground->Caption="Цвет фона";
-	Form2->GroupBox15->Caption="Область масштаба";
-	Form2->Label52->Caption="Цвет";
-	Form2->Label53->Caption="Толщина";
-	Form2->Label54->Caption="Стиль";
-	Form2->TabSheet2->Caption="Плоты";
-	Form2->GroupBox3->Caption="       Первичный плот";
-	Form2->Label7->Caption="Размер";
-	Form2->Label8->Caption="Цвет";
-	Form2->Label11->Caption="Толщина линии";
-	Form2->GroupBox4->Caption="       Вторичный плот";
-	Form2->Label13->Caption="Размер";
-	Form2->Label14->Caption="Цвет ";
-	Form2->Label17->Caption="Толщина линии";
-	Form2->GroupBox5->Caption="       Объединенные плоты";
-	Form2->Label19->Caption="Размер";
-	Form2->Label20->Caption="Цвет ";
-	Form2->Label23->Caption="Толщина линии";
-	Form2->GroupBox7->Caption="Параметры следа";
-	Form2->Label29->Caption="Длина следа";
-	Form2->CheckBox2->Caption="Отображать след";
-	Form2->TabSheet3->Caption="Формуляр";
-	Form2->GroupBox6->Caption="Параметры формуляра";
-	Form2->Label25->Caption="Размер шрифта";
-	Form2->Label26->Caption="Цвет";
-	Form2->Label38->Caption="Высота";
-	Form2->CheckBox1->Caption="Выводить рамку";
-	Form2->gbDataOutOfFormulyar->Caption="Отображать данные в формуляре";
-	Form2->cbNomer->Caption="Номер борта";
-	Form2->cbVysota->Caption="Высота";
-	Form2->cbOstatokTopliva->Caption="Остаток топлива";
-	Form2->cbTime->Caption="Время";
-	Form2->cbVeroyatnostPervKanal->Caption="Вероятность обнаружения по ПК";
-	Form2->cbSkorost->Caption="Скорость";
-	Form2->cbAzimutDalnost->Caption="Азимут и дальность";
-	Form2->cbVeroyatnostVtorKanal->Caption="Вероятность обнаружения по ВК";
-	Form2->cbFormulyar->Caption="Отображать формуляр";
-	Form2->TabSheet4->Caption="Параметры порта";
-	Form2->RGBaudrate->Caption="";
-	Form2->GBPort->Caption="Порт";
-	Form2->Label6->Caption="Имя порта";
-	Form2->RGChisloStopBits->Caption="Число стоповых бит";
-	Form2->TabSheet5->Caption="Параметры сохранения в файл";
-	Form2->GroupBox8->Caption="Путь сохранения данных";
-	Form2->CB_IsSaveDataFile->Caption="Сохранять данные";
-	Form2->CB_IsFilterDataToFile->Caption="Фильтр";
-	Form2->CB_IsSaveSectorsToFile->Caption="Сохранять данные о полученных секторах";
-	Form2->Button2->Caption="OK";
-	Form2->Button1->Caption="Отмена";
-	Form2->Button3->Caption="По умолчанию... ";
-
-
+        Caption="Опции";
+        TabSheet1->Caption="Азимутально-дальномерная шкала";
+	TabSheet7->Caption="Азимут";
+	GroupBox13->Caption="Дополнительные азимутальные линии";
+	Label46->Caption="Цвет";
+	Label47->Caption="Толщина";
+	Label48->Caption="Стиль";
+	GroupBox12->Caption="Опорные азимутальные линии";
+	Label43->Caption="Цвет";
+	Label44->Caption="Толщина";
+	Label45->Caption="Стиль";
+	Label1->Caption="Значения ";
+	Label2->Caption="Шаг азимута";
+	Label4->Caption="азимута";
+	TabSheet6->Caption="Дальность";
+	GroupBox10->Caption="Опорные  кольца  дальности";
+	Label27->Caption="Цвет";
+	Label28->Caption="Толщина";
+	Label39->Caption="Стиль";
+	GroupBox11->Caption="Дополнительные кольца дальности";
+	Label40->Caption="Цвет";
+	Label41->Caption="Стиль";
+	Label42->Caption="Толщина";
+	Label3->Caption="Значения";
+	Label5->Caption=" дальности";
+	GroupBox16->Caption="";
+	LClrbackground->Caption="Цвет фона";
+	GroupBox15->Caption="Область масштаба";
+	Label52->Caption="Цвет";
+	Label53->Caption="Толщина";
+	Label54->Caption="Стиль";
+	TabSheet2->Caption="Плоты";
+	GroupBox3->Caption="       Первичный плот";
+	Label7->Caption="Размер";
+	Label8->Caption="Цвет";
+	Label11->Caption="Толщина линии";
+	GroupBox4->Caption="       Вторичный плот";
+	Label13->Caption="Размер";
+	Label14->Caption="Цвет ";
+	Label17->Caption="Толщина линии";
+	GroupBox5->Caption="       Объединенные плоты";
+	Label19->Caption="Размер";
+	Label20->Caption="Цвет ";
+	Label23->Caption="Толщина линии";
+	GroupBox7->Caption="Параметры следа";
+	Label29->Caption="Длина следа";
+	CheckBox2->Caption="Отображать след";
+	TabSheet3->Caption="Формуляр";
+	GroupBox6->Caption="Параметры формуляра";
+	Label25->Caption="Размер шрифта";
+	Label26->Caption="Цвет";
+	Label38->Caption="Высота";
+	CheckBox1->Caption="Выводить рамку";
+	gbDataOutOfFormulyar->Caption="Отображать данные в формуляре";
+	cbNomer->Caption="Номер борта";
+	cbVysota->Caption="Высота";
+	cbOstatokTopliva->Caption="Остаток топлива";
+	cbTime->Caption="Время";
+	cbVeroyatnostPervKanal->Caption="Вероятность обнаружения по ПК";
+	cbSkorost->Caption="Скорость";
+	cbAzimutDalnost->Caption="Азимут и дальность";
+	cbVeroyatnostVtorKanal->Caption="Вероятность обнаружения по ВК";
+	cbFormulyar->Caption="Отображать формуляр";
+	TabSheet4->Caption="Параметры порта";
+	RGBaudrate->Caption="";
+	GBPort->Caption="Порт";
+	Label6->Caption="Имя порта";
+	RGChisloStopBits->Caption="Число стоповых бит";
+	TabSheet5->Caption="Параметры сохранения в файл";
+	GroupBox8->Caption="Путь сохранения данных";
+	CB_IsSaveDataFile->Caption="Сохранять данные";
+	CB_IsFilterDataToFile->Caption="Фильтр";
+	CB_IsSaveSectorsToFile->Caption="Сохранять данные о полученных секторах";
+	Button2->Caption="OK";
+	Button1->Caption="Отмена";
+	Button3->Caption="По умолчанию... ";
+        cbFParity->Caption = "Конт.чётн";
+        RGBaudrate->Caption = "Скорость порта";
+        RGParityMode->Caption = "Сх.контр.чётности";
+        RGParityMode->Items->Strings[0] = "нет бита чётн.";
+        RGParityMode->Items->Strings[1] = "дополн.до нечётн.";
+        RGParityMode->Items->Strings[2] = "дополн.до чётн.";
+        RGParityMode->Items->Strings[3] = "бит чётн.всегда 1";
+        RGParityMode->Items->Strings[4] = "бит чётн.всегда 0";
+        StaticText2->Caption = "Скорость порта";
 #endif
 }
 //---------------------------------------------------------------------------
@@ -809,6 +816,7 @@ void __fastcall TForm2::Button3Click(TObject *Sender)
 
 }
 //---------------------------------------------------------------------------
+
 
 
 
