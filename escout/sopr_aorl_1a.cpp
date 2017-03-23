@@ -253,10 +253,6 @@ double TSoprTrassa::GetVesKoef(TPaketData &PD, initialization &_init, double TO)
     }
     else if(PD.Otmetka.lNomer!=Nomer)
     {
-      if(Nomer==3)
-      {
-        int Debug=1;
-      }
       dD+=1000;
     }
   }

@@ -198,24 +198,6 @@ loop:
               if(N_of_Bytes==19)
               {
                  IsUVD=1;
-              }else
-              if(paket[Indx]==0x26)
-              {
-/*                 if(N_of_Bytes-Indx>17+1)
-                 {
-                    if(paket[Indx+17]==paket[Indx]%0xE0||
-                       paket[Indx+18]==paket[Indx+1]%0xF0)
-                    {
-                       IsUVD=1;
-                    }
-                 }else{
-                    if(N_of_Bytes-Indx==17)
-                    {
-                       IsUVD=1;
-                    }
-                 }
-                 */
-                 IsUVD=1;
               }
               if(IsUVD){
 
@@ -339,27 +321,7 @@ loop:
              if(N_of_Bytes==17)
              {
                  IsRBS=1;
-             }else
-             if(paket[Indx]==0x38)
-             {
-             /*
-                if(N_of_Bytes-Indx>15+1)
-                {
-                    if(paket[Indx+15]==(paket[Indx]||
-                       paket[Indx+16]%0xF0==(paket[Indx+1]%0xF0))
-                    {
-                       IsRBS=1;
-                    }
-               }else{
-                   if(N_of_Bytes-Indx==15)
-                   {
-                       IsRBS=1;
-                   }
-               }
-               */
-               IsRBS=1;
-            }
-
+             }
              if(IsRBS)
              {
                 PD[TI].TipPaketa=0;
