@@ -3,19 +3,16 @@
 <PROJECT>
   <MACROS>
     <VERSION value="BCB.06.00"/>
-    <PROJECT value="iko_aorl.exe"/>
-    <OBJFILES value="circle_obz\MainRBZ.obj circle_obz\airoplanelist.obj common\paketstruct.obj 
-      IKO_AORL.obj receive_from_com\comreadthread.obj 
-      circle_obz\WorkWithIniFiles.obj circle_obz\About.obj 
-      circle_obz\AnyTools.obj circle_obz\DrawObjectList.obj 
-      circle_obz\formulyars.obj circle_obz\in_and_log_thread.obj 
-      circle_obz\main_circle.obj circle_obz\options.obj 
-      common\win_str_dir_utils.obj common\soprforworkfile.obj 
-      common\sopr_doptools.obj circle_obz\LogFile.obj circle_obz\FrameTime.obj 
-      circle_obz\Navigation.obj circle_obz\Debug.obj common\kio_exeptions.obj 
-      circle_obz\MessageFrame.obj escout\sopr_aorl_1a.obj 
-      circle_obz\NutonIHord.obj circle_obz\probality.obj 
-      circle_obz\scan_comport.obj"/>
+    <PROJECT value="exe\iko_aorl.exe"/>
+    <OBJFILES value="temp\MainRBZ.obj temp\airoplanelist.obj temp\paketstruct.obj 
+      temp\IKO_AORL.obj temp\comreadthread.obj temp\WorkWithIniFiles.obj 
+      temp\About.obj temp\AnyTools.obj temp\DrawObjectList.obj 
+      temp\formulyars.obj temp\in_and_log_thread.obj temp\main_circle.obj 
+      temp\options.obj temp\win_str_dir_utils.obj temp\soprforworkfile.obj 
+      temp\sopr_doptools.obj temp\LogFile.obj temp\FrameTime.obj 
+      temp\Navigation.obj temp\Debug.obj temp\kio_exeptions.obj 
+      temp\MessageFrame.obj temp\sopr_aorl_1a.obj temp\NutonIHord.obj 
+      temp\probality.obj temp\scan_comport.obj"/>
     <RESFILES value="IKO_AORL.res"/>
     <DEFFILE value=""/>
     <RESDEPEN value="$(RESFILES) circle_obz\MainRBZ.dfm circle_obz\About.dfm 
@@ -47,10 +44,10 @@
   </MACROS>
   <OPTIONS>
     <CFLAG1 value="-O2 -H=$(BCB)\lib\vcl60.csm -Hc -Vx -Ve -X- -a8 -5 -b- -k- -vi -c -tW -tWM"/>
-    <PFLAGS value="-$Y- -$L- -$D- -$A8 -v -JPHNE -M"/>
+    <PFLAGS value="-N2temp -N0temp -$Y- -$L- -$D- -$A8 -v -JPHNE -M"/>
     <RFLAGS value=""/>
     <AFLAGS value="/mx /w2 /zn"/>
-    <LFLAGS value="-D&quot;&quot; -aa -Tpe -x -Gn"/>
+    <LFLAGS value="-Itemp -D&quot;&quot; -aa -Tpe -x -Gn"/>
     <OTHERFILES value=""/>
   </OPTIONS>
   <LINKER>
@@ -143,6 +140,14 @@ Item2=receive_from_com;common;circle_obz;C:\Program Files\Borland\CBuilder6\Proj
 [HistoryLists\hlDebugSourcePath]
 Count=1
 Item0=$(BCB)\source\vcl
+
+[HistoryLists\hlIntOutputDir]
+Count=1
+Item0=temp
+
+[HistoryLists\hlFinalOutputDir]
+Count=1
+Item0=exe
 
 [Debugging]
 DebugSourceDirs=$(BCB)\source\vcl

@@ -15,3 +15,5 @@ del escout\*.obj
 del escout\*.~*
 del receive_from_com\*.obj
 del receive_from_com\*.~*
+del temp\*.obj
+del exe\*.tds
