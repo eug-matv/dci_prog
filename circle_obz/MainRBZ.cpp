@@ -642,7 +642,7 @@ void __fastcall TForm1::PaintTimerTimer(TObject *Sender)
 #endif
 
                 SetFMessage1Size();
-                  
+
                 if(!WasOutLogError)
                 {
                    Log_IKO=LOGFILE_IKO::GetStaticLog();
@@ -652,11 +652,21 @@ void __fastcall TForm1::PaintTimerTimer(TObject *Sender)
 
           }else if(Ret==3)
           {
-                AnsiString Put=String("Error opening port ")+String(init.csComPortStr);
+#ifdef ENG_LANG
+                AnsiString Put=String("Error opening port  ")+String(init.csComPortStr);
                 if(FMessage1->Visible)FMessage1->Hide();
                 FMessage1->ShowText(Put,
                         "Change port settings or run the program ComDisable to disable the port");
                  SetFMessage1Size();
+#else
+                AnsiString Put=String("Ошибка открытия порта  ")+String(init.csComPortStr);
+                if(FMessage1->Visible)FMessage1->Hide();
+                FMessage1->ShowText(Put,
+                        "Измените настройки COM-порта или запустите COMDisable для отключения порта!");
+                 SetFMessage1Size();
+
+#endif
+
                  if(!WasOutLogError)
                 {
                    Log_IKO=LOGFILE_IKO::GetStaticLog();
