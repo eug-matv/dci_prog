@@ -677,7 +677,7 @@ void __fastcall TForm1::PaintTimerTimer(TObject *Sender)
           }else  if(Ret==1)
           {
 //             AnsiString Put=String("Ошибка открытия порта ")+String(init.csComPortStr);
-//             if(FMessage1->Visible)FMessage1->Hide();
+             if(FMessage1->Visible)FMessage1->Hide();
              Put=String(
 LSTR("No packets from port ", "Нет пакетов с порта "))+
 	String(init.csComPortStr);
@@ -693,7 +693,7 @@ LSTR("No packets from port ", "Нет пакетов с порта "))+
                 WasOutLogError=1;
              }
           }else{
-//             FMessage1->Hide();
+             if(FMessage1->Visible)FMessage1->Hide();
              if(WasOutLogError!=0)
              {
                if(Log_IKO)Log_IKO->OutWorkInfo(LSTR("Packets arrive","Пакеты поступают"));
