@@ -21,28 +21,6 @@
   long TPaketData::OutIndex=0;                       //Выходной индекс
 
 
-//Вспомогательная процедура для перевода не правильного числа в правильное
-  int pakstructPerevod(
-           int God, int Mesyac, int Den, long DSutki,
-           int &God1, int &Mesyac1, int &Den1
-           )
-  {
-     struct tm tm1, *tm2;
-
-     time_t tmt;
-     tm1.tm_sec=tm1.tm_min=tm1.tm_hour=1;
-     tm1.tm_year=God-1900;
-     tm1.tm_mon=Mesyac-1;
-     tm1.tm_mday=Den;
-     tmt=mktime(&tm1);
-     tmt=tmt+DSutki*3600*24;
-     tm2=localtime(&tmt);
-     God1=tm2->tm_year+1900;
-     Mesyac1=tm2->tm_mon+1;
-     Den1=tm2->tm_mday;
-     return 1;
-  }
-
 
 
    int TMyDateTime::operator <(TMyDateTime mdt)
@@ -132,8 +110,6 @@
             MyDateTime.Time-=24.00;
             dSutki++;
          }
-         pakstructPerevod(this->God,this->Mesyac,this->Den,dSutki,
-           MyDateTime.God,MyDateTime.Mesyac,MyDateTime.Den);
          return MyDateTime;
       }
 
@@ -145,8 +121,7 @@
             MyDateTime.Time+=24.00;
             dSutki--;
          }
-         pakstructPerevod(this->God,this->Mesyac,this->Den,dSutki,
-           MyDateTime.God,MyDateTime.Mesyac,MyDateTime.Den);
+         
          return MyDateTime;
       }
       return MyDateTime;

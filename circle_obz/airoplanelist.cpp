@@ -103,7 +103,7 @@ TAirplaneList::~TAirplaneList()
      for(int j=0;j<iMaxSize_apl[i];j++)
      {
 
-        if(j<iSize_apl[i]&&apl[i][j]->GetProbData)
+        if(j<iSize_apl[i]&&apl[i][j]->GetProbData) 
            delete ((TOcenkaVeroyatnosti*)(apl[i][j]->GetProbData));
         free(apl[i][j]);
      }
@@ -125,9 +125,9 @@ TAirplaneList::~TAirplaneList()
   {
     for(int j=0;j<iMaxSize_temp_apl[1];j++)
     {
-        if(j<iSize_temp_apl[1]&&
-           temp_apl[1][j]->GetProbData)
-          delete ((TOcenkaVeroyatnosti*)(temp_apl[1][j]->GetProbData));
+        if(j<iSize_temp_apl[1]&&   
+           temp_apl[1][j]->GetProbData)   
+              delete ((TOcenkaVeroyatnosti*)(temp_apl[1][j]->GetProbData));
         free(temp_apl[1][j]);
     }
     free(temp_apl[1]);

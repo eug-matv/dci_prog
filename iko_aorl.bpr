@@ -146,8 +146,9 @@ Count=1
 Item0=temp
 
 [HistoryLists\hlFinalOutputDir]
-Count=1
-Item0=exe
+Count=2
+Item0=exe\
+Item1=exe
 
 [Debugging]
 DebugSourceDirs=$(BCB)\source\vcl

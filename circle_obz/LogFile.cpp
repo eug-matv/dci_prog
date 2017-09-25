@@ -1,6 +1,6 @@
 //---------------------------------------------------------------------------
 
-
+#include <vcl.h>
 #pragma hdrstop
 
 #include <dir.h>
@@ -83,8 +83,7 @@ int LOGFILE_IKO::Start(
             int View_init
             )  //Структура инициализации
 {
-    time_t cur_time;
-    struct tm *cur_tm;
+    unsigned short y1,m1,d1,h2,m2,s2,ms2;
     char csDatePapka[1000];
     int NewFile=0;
     int Y,M,D;
@@ -112,7 +111,7 @@ int LOGFILE_IKO::Start(
         {
           LeaveCriticalSection(&CS);
           return (-1);
-        }  
+        }
       }else{
         LeaveCriticalSection(&CS);
         return (-1);
@@ -121,13 +120,14 @@ int LOGFILE_IKO::Start(
 
 
 //Определить текущую дату
-    time(&cur_time);
-    cur_tm=localtime(&cur_time);
+  TDateTime dt = Now();
+  dt.DecodeDate(&y1,&m1,&d1);
+  dt.DecodeTime(&h2, &m2, &s2, &ms2);
 
 
 //Сформируем папку
     sprintf(csDatePapka, "%s\\%02d",
-      init.csFullPathToData, cur_tm->tm_mday);
+      init.csFullPathToData, d1);
 
 //Проверка существования PathLogFileFileName
    if(access(csDatePapka,00))
@@ -150,9 +150,9 @@ int LOGFILE_IKO::Start(
    NewFile=GetDate(&Y,&M,&D);
    if(NewFile)
    {
-      if(Y!=cur_tm->tm_year+1900||
-         M!=cur_tm->tm_mon+1||
-         D!=cur_tm->tm_mday)
+      if(Y!=(int)y1||
+         M!=(int)m1||
+         D!=(int)d1)
       {
          NewFile=1;
       }else{
@@ -184,18 +184,18 @@ int LOGFILE_IKO::Start(
 #ifdef ENG_LANG
    fprintf(fp,
      ">>>   Start log : Time  %02d:%02d:%02d   Date %02d.%02d.%04d\n",  
-    cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-    cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+    (int)h2,(int)m2, (int)s2,
+    (int)d1, (int)m1, (int)y1);
 #else
    fprintf(fp,
      ">>>   Старт протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d\n",  
-    cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-    cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+    (int)h2,(int)m2, (int)s2,
+    (int)d1, (int)m1, (int)y1);
    
 #endif
-   LastDay=cur_tm->tm_mday;
-   LastMonth=cur_tm->tm_mon+1;
-   LastYear=cur_tm->tm_year+1900;
+   LastDay=(int)d1;
+   LastMonth=(int)m1;
+   LastYear=(int)y1;
    LeaveCriticalSection(&CS);
 
    return 1;
@@ -204,22 +204,21 @@ int LOGFILE_IKO::Start(
 
 int LOGFILE_IKO::Stop()
 {
-   time_t cur_time;
-   struct tm *cur_tm;
+   unsigned short y1,m1,d1,h2,m2,s2,ms2;
    EnterCriticalSection(&CS);
-
-   time(&cur_time);
-   cur_tm=localtime(&cur_time);
+   TDateTime dt = Now();
+   dt.DecodeDate(&y1,&m1,&d1);
+   dt.DecodeTime(&h2, &m2, &s2, &ms2);
    if(fp)
    {
 #ifdef ENG_LANG
       fprintf(fp,">>>   End log : Time  %02d:%02d:%02d   Date %02d.%02d.%04d\n",
-  cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-  cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+  (int)h2,(int)m2, (int)s2,
+  (int)d1, (int)m1, (int)y1);
 #else
 fprintf(fp,">>>   Конец протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d\n",
-  cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-  cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+  (int)h2,(int)m2, (int)s2,
+  (int)d1, (int)m1, (int)y1);
 #endif
       fprintf(fp,"-----------------------------------------------------------------\n\n\n");
       fclose(fp);
@@ -309,6 +308,11 @@ int LOGFILE_IKO::GetDate(int *Y, int *M, int *D)
 //Нечего нет можно создавать
        return 0;
    }
+
+   if(!FileExists(String(PathLogFileName)))
+   {
+        return 0;
+   }
    Vrem_fp=fopen(PathLogFileName,"rt");
    if(!Vrem_fp)return 0;
    Ret=fseek(Vrem_fp,47,0);
@@ -327,25 +331,24 @@ int LOGFILE_IKO::GetDate(int *Y, int *M, int *D)
 
 int LOGFILE_IKO::DataOut(int IsData, char *Text)
 {
-  FILE *fpTemp;
-  time_t cur_time;
-  struct tm *cur_tm;
+  unsigned short y1,m1,d1,h2,m2,s2,ms2;
   int Ret;
   if(!fp)return 0;
 //  EnterCriticalSection(&CS);
 //Определить текущую дату
   if(IsData)
   {
-    time(&cur_time);
-    cur_tm=localtime(&cur_time);
+     TDateTime dt = Now();
+     dt.DecodeDate(&y1,&m1,&d1);
+     dt.DecodeTime(&h2, &m2, &s2, &ms2);
 
 //Вывести дату
-    if(cur_tm->tm_year+1900!=LastYear||
-       cur_tm->tm_mon+1!=LastMonth||
-       cur_tm->tm_mday!=LastDay)
+    if((int)y1!=LastYear||
+       (int)m1!=LastMonth||
+       (int)d1!=LastDay)
     {
-      Ret=NewDay(cur_tm->tm_year+1900,cur_tm->tm_mon+1,cur_tm->tm_mday,
-                 cur_tm->tm_hour, cur_tm->tm_min, cur_tm->tm_sec);
+      Ret=NewDay((int)y1,(int)m1,(int)d1,
+                 (int)h2, (int)m2, (int)s2);
       if(Ret!=1||fp==NULL)
       {
          fp=NULL;
@@ -354,7 +357,7 @@ int LOGFILE_IKO::DataOut(int IsData, char *Text)
       }
     }
     fprintf(fp,"%02d:%02d:%02d ",
-        cur_tm->tm_hour, cur_tm->tm_min, cur_tm->tm_sec);
+        h2, m2, s2);
 
   }
   fputs(Text,fp);
@@ -369,7 +372,7 @@ int LOGFILE_IKO::DataOut(int IsData, char *Text)
 int LOGFILE_IKO::Init_Out(void)
 {
 //Вывод некоторых настроек
-   char Strka[200];
+   char Strka[2000];
    EnterCriticalSection(&CS);
    if(!fp)return 0;
 #ifdef ENG_LANG
@@ -616,21 +619,21 @@ int LOGFILE_IKO::OutChangeOption(const initialization &_init)
 int LOGFILE_IKO::TestNextDay(void)
 {
    int Y1,M1,D1,H,M,S;
-    time_t cur_time;
-    struct tm *cur_tm;
-    int Ret;
+   unsigned short y1,m1,d1,h2,m2,s2,ms2;
+   int Ret;
 
 //Узнаем текущее время
    EnterCriticalSection(&CS);
    if(!fp)return 0;
-   time(&cur_time);
-   cur_tm=localtime(&cur_time);
-   if(cur_tm->tm_year+1900!=LastYear||
-       cur_tm->tm_mon+1!=LastMonth||
-       cur_tm->tm_mday!=LastDay)
+   TDateTime dt = Now();
+   dt.DecodeDate(&y1,&m1,&d1);
+   dt.DecodeTime(&h2, &m2, &s2, &ms2);
+   if((int)y1!=LastYear||
+       (int)m1!=LastMonth||
+       (int)d1!=LastDay)
    {
-      Ret=NewDay(cur_tm->tm_year+1900,cur_tm->tm_mon+1,cur_tm->tm_mday,
-                 cur_tm->tm_hour, cur_tm->tm_min, cur_tm->tm_sec);
+      Ret=NewDay((int)y1,(int)m1, (int)d1,
+                 (int)h2, (int)m2, (int)s2);
 
 
       if(!Ret||!fp)

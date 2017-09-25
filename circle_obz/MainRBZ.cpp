@@ -207,6 +207,9 @@ void __fastcall TForm1::StopWork()  //Остановка работы считывания
       IALDT->Stop();
       IALDT=NULL;
    }
+
+
+
    if(CRT)
    {
       CRT->Disconnect();
@@ -1848,4 +1851,7 @@ void __fastcall TForm1::FMessage1Button1Click(TObject *Sender)
         }
 }
 //---------------------------------------------------------------------------
+
+
+
 

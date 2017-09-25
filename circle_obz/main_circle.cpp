@@ -1227,7 +1227,7 @@ int TMainCircleOut::PaintTextCircle(HDC DC, double Radius)  //Радиус окружности
   int iXr, iYr;
   int N_of_R;
   double f_left, f_top, f_right, f_bottom;
-  char StrkaOut[5];
+  char StrkaOut[100];
   int DlinaStrkaOut;
 
 //1 этап -- рисование на краях области
@@ -1325,7 +1325,7 @@ int TMainCircleOut::PaintTextLine(HDC DC, double Ugol)  //Тут данны координаты у
    long tX1,tY1, tX2, tY2;         //Возвращаемая точка
    double ftX1, ftY1, ftX2, ftY2;  //
    int StrkaOutDlina;
-   char StrkaOut[5];
+   char StrkaOut[100];
    double MaxDlina=1.5*init.max_dalnost*dfMasshtab;
    int Ret;
    ftX1=pntRLS.x; ftY1=pntRLS.y;

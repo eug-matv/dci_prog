@@ -1,6 +1,7 @@
 //---------------------------------------------------------------------------
 
 
+#include <vcl.h>
 #pragma hdrstop
 
 
@@ -60,6 +61,11 @@ int soprGetDate(char *FileName,
   FILE *fp;
   char c1,c2;
   int Ret;
+
+  if (!FileExists(String(FileName)))
+  {
+        return 0;
+  }
   fp=fopen(FileName,"r");
   if(!fp)return 0;
   Ret=fseek(fp,47,0);  //Встанем на 47
@@ -504,18 +510,15 @@ long __stdcall  soprGetFromStringToPaketData
 //Сравним дату и время
        if(_PaketData.DateTime.Time<LastDateTime->Time-5.0/60.0)
        {
-//Надо расчитать следующий день
-           tm1.tm_year=LastDateTime->God-1900;
-           tm1.tm_mon=LastDateTime->Mesyac-1;
-           tm1.tm_mday=LastDateTime->Den;
-           tm1.tm_sec=tm1.tm_min=tm1.tm_hour=0;
-           tm1.tm_isdst=-1;
-           time_t1=mktime(&tm1);
-           time_t1+=24*3600;
-           tm2=localtime(&time_t1);
-           _PaketData.DateTime.God=tm2->tm_year+1900;
-           _PaketData.DateTime.Mesyac=tm2->tm_mon+1;
-           _PaketData.DateTime.Den=tm2->tm_mday;
+           unsigned short y, mn, d;      
+           TDate curDt(LastDateTime->God,
+                       LastDateTime->Mesyac,
+                       LastDateTime->Den);
+           TDate nextDt = curDt + 1;
+           curDt.DecodeDate(&y,&mn,&d);
+           _PaketData.DateTime.God=y;
+           _PaketData.DateTime.Mesyac=mn;
+           _PaketData.DateTime.Den=d;
        }else{
            _PaketData.DateTime.God=LastDateTime->God;
            _PaketData.DateTime.Mesyac=LastDateTime->Mesyac;
@@ -661,17 +664,15 @@ long __stdcall  soprGetFromStringToPaketData
        if(_PaketData.DateTime.Time<LastDateTime->Time-5.0/60.0)
        {
 //Надо расчитать следующий день
-           tm1.tm_year=LastDateTime->God-1900;
-           tm1.tm_mon=LastDateTime->Mesyac-1;
-           tm1.tm_mday=LastDateTime->Den;
-           tm1.tm_sec=tm1.tm_min=tm1.tm_hour=0;
-           tm1.tm_isdst=-1;
-           time_t1=mktime(&tm1);
-           time_t1+=24*3600;
-           tm2=localtime(&time_t1);
-           _PaketData.DateTime.God=tm2->tm_year+1900;
-           _PaketData.DateTime.Mesyac=tm2->tm_mon+1;
-           _PaketData.DateTime.Den=tm2->tm_mday;
+           unsigned short y, mn, d;      
+           TDate curDt(LastDateTime->God,
+                       LastDateTime->Mesyac,
+                       LastDateTime->Den);
+           TDate nextDt = curDt + 1;
+           curDt.DecodeDate(&y,&mn,&d);
+           _PaketData.DateTime.God=y;
+           _PaketData.DateTime.Mesyac=mn;
+           _PaketData.DateTime.Den=d;
        }else{
            _PaketData.DateTime.God=LastDateTime->God;
            _PaketData.DateTime.Mesyac=LastDateTime->Mesyac;
@@ -803,14 +804,13 @@ _PaketData.Otmetka.lDopNumber=_PaketData.Otmetka.lDopVysota=-100;
 int TSoprSaveSession::Start(void)
 {
   int Ret;
-  time_t cur_time;
-  struct tm *cur_tm;
   char c1,c2;
   int Y1,Dy1,Mth1;
   FILE *fp;
   char sDatePapka[1250],
        sFileData[1270];
-  char StrokaOut[100];
+  char StrokaOut[2000];
+  unsigned short y1,m1,d1, h2,m2,s2,ms2;
 
 
   if(bIsInit||bIsInitLoad)return 0;
@@ -826,14 +826,18 @@ int TSoprSaveSession::Start(void)
 
   if(Ret!=0)return (-1);
 
-//Узнаем текущее время
-  time(&cur_time);
-  cur_tm=localtime(&cur_time);
+  TDateTime dt = Now();
+  dt.DecodeDate(&y1,&m1,&d1);
+  dt.DecodeTime(&h2, &m2, &s2, &ms2);
+
+
+
+
 
 //Узнаем имя папки по дню
 
   sprintf(sDatePapka,"%s%c%02d",
-       csPutKDannym,cRazdelitel,cur_tm->tm_mday);
+       csPutKDannym,cRazdelitel,d1);
 
 //Проверим существование данной папки
   Ret=access(sDatePapka,00);
@@ -849,11 +853,11 @@ int TSoprSaveSession::Start(void)
 
 //Попробуем удалить не актуальные файлы в папке
   soprDelFiles(sDatePapka,csPrefix,csExt,cRazdelitel,
-    cur_tm->tm_year+1900,    cur_tm->tm_mon+1, cur_tm->tm_mday);
+    (int)y1,    (int)m1, (int)d1);
 
 //Откроем файл на чтение
   sprintf(sFileData,"%s%c%s%02d%c%s",
-       sDatePapka,cRazdelitel,csPrefix,cur_tm->tm_hour,'.',csExt);
+       sDatePapka,cRazdelitel,csPrefix,(int)h2,'.',csExt);
 
 
 
@@ -871,13 +875,14 @@ int TSoprSaveSession::Start(void)
 //Сделаем запись в файл.
 //Подготовим строку
 #ifdef ENG_LANG
-  sprintf(StrokaOut,">>>   Start log : Time  %02d:%02d:%02d   Date %02d.%02d.%04d",    
-   cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-   cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+  sprintf(StrokaOut,">>>   Start log : Time  %02d:%02d:%02d   Date %02d.%02d.%04d",
+     (int)h2,(int)m2, (int)s2,
+  (int)d1, (int)m1, (int)y1);
+
 #else
-  sprintf(StrokaOut,">>>   Старт протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d",    
-   cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-   cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+  sprintf(StrokaOut,">>>   Старт протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d",
+  (int)h2,(int)m2, (int)s2,
+  (int)d1, (int)m1, (int)y1);
 #endif
 //Проверим что надо добавить в строку
   if(bDataOutDOS)
@@ -892,7 +897,7 @@ int TSoprSaveSession::Start(void)
   }
 
   bIsInit=true;
-  iLastHour=cur_tm->tm_hour;
+  iLastHour=h2;
   return 1;
 }
 
@@ -902,25 +907,26 @@ int TSoprSaveSession::Start(void)
 int  TSoprSaveSession::Stop(void)
 {
   int Ret;
-  time_t cur_time;
-  struct tm *cur_tm;
   char c1,c2;
   int Y1,Dy1,Mth1;
   FILE *fp;
   char sDatePapka[1250],
        sFileData[1270];
-  char StrokaOut[100];
-
+  char StrokaOut[2000];
+  unsigned short y1,m1,d1,h2,m2,s2,ms2;
 
   if(!bIsInit)return 0;
 
 //Узнаем текущее время
-  time(&cur_time);
-  cur_tm=localtime(&cur_time);
+  TDateTime dt = Now();
+  dt.DecodeDate(&y1,&m1,&d1);
+  dt.DecodeTime(&h2, &m2, &s2, &ms2);
+
+
 
 
 //Проверим существование каталога csPutKDannym
-  if(iLastHour!=cur_tm->tm_hour)
+  if(iLastHour!=(int)h2)
   {
      close(lFD);  //Закроем текущий дескриптор
      Ret=access(csPutKDannym,00);
@@ -930,7 +936,7 @@ int  TSoprSaveSession::Stop(void)
 //Узнаем имя папки по дню
 
      sprintf(sDatePapka,"%s%c%02d",
-          csPutKDannym,cRazdelitel,cur_tm->tm_mday);
+          csPutKDannym,cRazdelitel,d1);
 
 //Проверим существование данной папки
      Ret=access(sDatePapka,00);
@@ -944,13 +950,14 @@ int  TSoprSaveSession::Stop(void)
      }
 
 
+
      //Попробуем удалить не актуальные файлы в папке
       soprDelFiles(sDatePapka,csPrefix,csExt,cRazdelitel,
-    cur_tm->tm_year+1900,    cur_tm->tm_mon+1, cur_tm->tm_mday);
+        y1,m1,d1);
 
     //Откроем файл на чтение
      sprintf(sFileData,"%s%c%s%02d%c%s",
-          sDatePapka,cRazdelitel,csPrefix,cur_tm->tm_hour,'.',csExt);
+          sDatePapka,cRazdelitel,csPrefix,h2,'.',csExt);
 
 
 //Создаем файл
@@ -962,16 +969,19 @@ int  TSoprSaveSession::Stop(void)
     }
     if(lFD==-1)return -4;
   }
+
+
+
 //Сделаем запись в файл.
 //Подготовим строку
 #ifdef ENG_LANG
   sprintf(StrokaOut,">>>   End log : Time  %02d:%02d:%02d   Date %02d.%02d.%04d",
-       cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-    cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+    h2,m2,s2,
+    d1,m1,y1);
 #else
   sprintf(StrokaOut,">>>   Конец протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d",
-       cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-    cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+    h2,m2,s2,
+    d1,m1,y1);
 #endif
 //Проверим что надо добавить в строку
   if(bDataOutDOS)
@@ -984,7 +994,6 @@ int  TSoprSaveSession::Stop(void)
      StrokaOut[57]=10;
      write(lFD,StrokaOut,58);
   }
-
 //Выведем в файл данные
   close(lFD);
   bIsInit=false;
@@ -996,15 +1005,14 @@ int  TSoprSaveSession::Stop(void)
 int TSoprSaveSession::SaveDataToFile(TPaketData &_PaketData)
 {
   int Ret;
-  time_t cur_time;
-  struct tm *cur_tm;
   char c1,c2;
   int Y1,Dy1,Mth1;
   FILE *fp;
   char sDatePapka[1250],
        sFileData[1270];
-  char StrokaOut[150];
+  char StrokaOut[2000];
   int SizeOfStrka;
+  unsigned short y1,m1,d1,h2,m2,s2,ms2;
 
   if(!bIsInit)return 0;
 
@@ -1027,13 +1035,15 @@ int TSoprSaveSession::SaveDataToFile(TPaketData &_PaketData)
          return 1;
   };
 
-//Узнаем текущее время
-  time(&cur_time);
-  cur_tm=localtime(&cur_time);
+
+  TDateTime dt = Now();
+  dt.DecodeDate(&y1,&m1,&d1);
+  dt.DecodeTime(&h2, &m2, &s2, &ms2);
+
 
 
 //Проверим существование каталога csPutKDannym
-  if(iLastHour!=cur_tm->tm_hour)
+  if(iLastHour!=(int)h2)
   {
      close(lFD);  //Закроем текущий дескриптор
      Ret=access(csPutKDannym,00);
@@ -1044,7 +1054,7 @@ int TSoprSaveSession::SaveDataToFile(TPaketData &_PaketData)
 //Узнаем имя папки по дню
 
      sprintf(sDatePapka,"%s%c%02d",
-          csPutKDannym,cRazdelitel,cur_tm->tm_mday);
+          csPutKDannym,cRazdelitel,(int)d1);
 
 
 //Проверим существование данной папки
@@ -1060,13 +1070,13 @@ int TSoprSaveSession::SaveDataToFile(TPaketData &_PaketData)
 
   //Попробуем удалить не актуальные файлы в папке
       soprDelFiles(sDatePapka,csPrefix,csExt,cRazdelitel,
-    cur_tm->tm_year+1900,    cur_tm->tm_mon+1, cur_tm->tm_mday);
+            (int)y1,(int)m1,(int)d1);
 
 
 
 //Откроем файл на чтение
      sprintf(sFileData,"%s%c%s%02d%c%s",
-          sDatePapka,cRazdelitel,csPrefix,cur_tm->tm_hour,'.',csExt);
+          sDatePapka,cRazdelitel,csPrefix,(int)h2,'.',csExt);
 
 
 //Создаем файл
@@ -1083,12 +1093,12 @@ int TSoprSaveSession::SaveDataToFile(TPaketData &_PaketData)
 //Подготовим строку
 #ifdef ENG_LANG
     sprintf(StrokaOut,">>>   Start log: Time  %02d:%02d:%02d   Date %02d.%02d.%04d",
-      cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-      cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+      (int)h2, (int)m2, (int)s2,
+      (int)d1,(int)m1,(int)y1);
 #else
     sprintf(StrokaOut,">>>   Старт протокола : время  %02d:%02d:%02d   дата %02d.%02d.%04d",
-      cur_tm->tm_hour,cur_tm->tm_min, cur_tm->tm_sec,
-      cur_tm->tm_mday, cur_tm->tm_mon+1, cur_tm->tm_year+1900);
+      (int)h2,(int)m2,(int)s2,
+      (int)d1,(int)m1,(int)y1);
 #endif
 //Проверим что надо добавить в строку
        if(bDataOutDOS)
@@ -1107,7 +1117,7 @@ int TSoprSaveSession::SaveDataToFile(TPaketData &_PaketData)
 
 
 //Тут осуществляется вывод в файл самих данных подготовленной строки
-  iLastHour=cur_tm->tm_hour;
+  iLastHour=(int)h2;
   if(Ret==1)
   {
      if(bDataOutDOS)
@@ -1476,6 +1486,10 @@ FILE* TSoprSaveSession::GetDataFileForFirstTime(
    }
 
 
+   if(!FileExists(String(TekFile)))
+   {
+        return NULL;
+   }
    fOpen=fopen(TekFile,"rb");
    if(!fOpen)return NULL;
 
