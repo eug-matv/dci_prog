@@ -95,7 +95,7 @@ class TMainCircleOut
                              //Если есть бедствие, то оно равно
 			     //числу бедствий
                              //иначе равна 0 
-                             //Устанавливается методом AddTarget, 
+                             //Устанавливается методом AddTarget,
                              //Если новый элемент с бедствием
      	  		     //иначе его значение равно 0
 	                     //Рисуется бедственные борты методом 
@@ -108,7 +108,10 @@ class TMainCircleOut
         
   TPaketData PD_Bedstvie[10];//Пакет данных бедствие
 			     //Число бедствий равно N_of_PD_Bedstvie					
-                             
+
+  char timeOutStr[100];      //Строка с отображением такущего врмени 
+
+  bool bTimeOutVisible;      //Отображать ли время и дату
 
   int MakeAndPaintSetka(HWND hwnd);
 
@@ -155,7 +158,10 @@ public:
 
 
 
-   TMainCircleOut():IsWork(0),bSetka(NULL){};
+   TMainCircleOut():IsWork(0),bSetka(NULL),
+        bTimeOutVisible(true){
+        timeOutStr[0] = 0;
+   };
    ~TMainCircleOut(){Stop();};
    int GetWorking()
    {
@@ -269,7 +275,23 @@ public:
    }
 
 
+//Устаноквка строки со временем и датой
+   void SetTimeOutStr(char *str)
+   {
+        strcpy(timeOutStr,str);
+   }
 
+//Время отображается?
+   bool GetTimeOutVisisble()
+   {
+        return bTimeOutVisible;
+   }
+
+
+   void SetTimeOutVisible(bool timeOut)
+   {
+       bTimeOutVisible = timeOut;
+   }
 
 };
 

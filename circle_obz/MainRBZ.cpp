@@ -29,7 +29,6 @@
 
 //---------------------------------------------------------------------------
 #pragma package(smart_init)
-#pragma link "FrameTime"
 #pragma link "MessageFrame"
 #pragma resource "*.dfm"
 #define ABS(X) (((X) > 0) ? (X) : (-(X)))
@@ -1060,9 +1059,6 @@ void __fastcall TForm1::FormCreate(TObject *Sender)
     ToolButton11->Tag = 1;
 
     Form1->WindowState=wsMaximized;
-  //Выставим цвет фрейма с датой и временем
-    Form1->FTime1->Color =(TColor) init.Clrbackground;
-    Form1->FTime1->Label1->Font->Color=(~init.Clrbackground)&0xFFFFFF;
     isErrorControl=0;
 
  //Загрузим библиотеку контроля
@@ -1286,8 +1282,8 @@ void __fastcall TForm1::Timer1Timer(TObject *Sender)
   //организация времени
    TDateTime DateTime = Time();  // store the current date and time
    AnsiString str = TimeToStr(DateTime)+ "   " + DateToStr(Date()); // convert the time to a string
-   FTime1->Label1->Caption = str;
 
+   MCO.SetTimeOutStr(str.c_str());
 
 
 }
@@ -1369,15 +1365,13 @@ void __fastcall TForm1::ModifyScrollBars()
 
 void __fastcall TForm1::N15Click(TObject *Sender)
 {
- if (FTime1->Visible == false)
+    if(MCO.GetTimeOutVisisble())
     {
-     FTime1->Visible = true;
-     N15->Checked = true;
-    }
-    else
-    {
-     FTime1->Visible = false;
-     N15->Checked = false;
+        MCO.SetTimeOutVisible(false);
+        N15->Checked = MCO.GetTimeOutVisisble();
+    }else{
+        MCO.SetTimeOutVisible(true);
+        N15->Checked = MCO.GetTimeOutVisisble();
     }
  }
 //---------------------------------------------------------------------------

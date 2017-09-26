@@ -19,7 +19,6 @@
 #include "main_circle.h"
 #include "in_and_log_thread.h"
 #include <StdCtrls.hpp>
-#include "FrameTime.h"
 #include "MessageFrame.h"
 //---------------------------------------------------------------------------
 class TRZPDraw;
@@ -54,7 +53,6 @@ __published:	// IDE-managed Components
         TMenuItem *N12;
         TMenuItem *N13;
         TMenuItem *N14;
-        TFTime *FTime1;
         TTimer *Timer1;
         TMenuItem *N15;
         TPanel *Panel1;

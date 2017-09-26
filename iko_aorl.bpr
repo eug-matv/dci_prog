@@ -9,15 +9,14 @@
       temp\About.obj temp\AnyTools.obj temp\DrawObjectList.obj 
       temp\formulyars.obj temp\in_and_log_thread.obj temp\main_circle.obj 
       temp\options.obj temp\win_str_dir_utils.obj temp\soprforworkfile.obj 
-      temp\sopr_doptools.obj temp\LogFile.obj temp\FrameTime.obj 
-      temp\Navigation.obj temp\Debug.obj temp\kio_exeptions.obj 
-      temp\MessageFrame.obj temp\sopr_aorl_1a.obj temp\NutonIHord.obj 
-      temp\probality.obj temp\scan_comport.obj"/>
+      temp\sopr_doptools.obj temp\LogFile.obj temp\Navigation.obj temp\Debug.obj 
+      temp\kio_exeptions.obj temp\MessageFrame.obj temp\sopr_aorl_1a.obj 
+      temp\NutonIHord.obj temp\probality.obj temp\scan_comport.obj"/>
     <RESFILES value="IKO_AORL.res"/>
     <DEFFILE value=""/>
     <RESDEPEN value="$(RESFILES) circle_obz\MainRBZ.dfm circle_obz\About.dfm 
-      circle_obz\options.dfm circle_obz\FrameTime.dfm circle_obz\Navigation.dfm 
-      circle_obz\Debug.dfm circle_obz\MessageFrame.dfm"/>
+      circle_obz\options.dfm circle_obz\Navigation.dfm circle_obz\Debug.dfm 
+      circle_obz\MessageFrame.dfm"/>
     <LIBFILES value="hhctrl.lib"/>
     <LIBRARIES value="rtl.lib vcl.lib"/>
     <SPARELIBS value="vcl.lib rtl.lib"/>
@@ -27,7 +26,7 @@
       vclie.bpi xmlrtl.bpi inet.bpi inetdbbde.bpi inetdbxpress.bpi inetdb.bpi 
       nmfast.bpi bcbie.bpi soaprtl.bpi dclocx.bpi dbexpress.bpi dbxcds.bpi 
       indy.bpi bcb2kaxserver.bpi"/>
-    <PATHCPP value=".;circle_obz;circle_obz;common;receive_from_com;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;common;common;common;circle_obz;circle_obz;circle_obz;circle_obz;common;circle_obz;escout;circle_obz;circle_obz;circle_obz"/>
+    <PATHCPP value=".;circle_obz;circle_obz;common;receive_from_com;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;circle_obz;common;common;common;circle_obz;circle_obz;circle_obz;common;circle_obz;escout;circle_obz;circle_obz;circle_obz"/>
     <PATHPAS value=".;"/>
     <PATHRC value=".;"/>
     <PATHASM value=".;"/>
@@ -76,7 +75,6 @@
       <FILE FILENAME="common\sopr_doptools.cpp" FORMNAME="" UNITNAME="sopr_doptools" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="circle_obz\structs.h" FORMNAME="" UNITNAME="structs.h" CONTAINERID="" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="circle_obz\LogFile.cpp" FORMNAME="" UNITNAME="LogFile" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
-      <FILE FILENAME="circle_obz\FrameTime.cpp" FORMNAME="FTime" UNITNAME="FrameTime" CONTAINERID="CCompiler" DESIGNCLASS="TFrame" LOCALCOMMAND=""/>
       <FILE FILENAME="circle_obz\Navigation.cpp" FORMNAME="Form4" UNITNAME="Navigation" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="circle_obz\Debug.cpp" FORMNAME="FDebug" UNITNAME="Debug" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>
       <FILE FILENAME="common\kio_exeptions.cpp" FORMNAME="" UNITNAME="kio_exeptions" CONTAINERID="CCompiler" DESIGNCLASS="" LOCALCOMMAND=""/>

@@ -99,10 +99,7 @@ LSTR("Check the options. Acceptable size of Label to 500x500",
   // ÷вет
 
   init.Clrbackground =  (COLORREF)(String("0x")+EClrbackground->Text).ToInt();
-  // ÷вет фрейма равен выставленному цвету background
-  Form1->FTime1->Color =  init.Clrbackground;
-     //------сменить цвет у даты-врем€ на черный если белый фон
-  Form1->FTime1->Label1->Font->Color=(~init.Clrbackground)&0xFFFFFF;
+
 
   init.DLines.lopnColor = (COLORREF)(String("0x")+ EDLines->Text).ToInt();
   init.Circle.lopnColor = (COLORREF)(String("0x")+ EClrcircle->Text).ToInt();

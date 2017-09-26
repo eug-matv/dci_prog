@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 177
-  Top = 131
+  Left = 547
+  Top = 178
   Width = 720
   Height = 557
   Caption = 'AORL PPI'
@@ -200,27 +200,6 @@ object Form1: TForm1
       end
     end
   end
-  inline FTime1: TFTime
-    Left = 10
-    Top = 8
-    Width = 187
-    Height = 30
-    DragMode = dmAutomatic
-    Color = clBlack
-    Ctl3D = True
-    ParentColor = False
-    ParentCtl3D = False
-    TabOrder = 2
-    inherited Label1: TLabel
-      Width = 187
-      Height = 30
-      Color = clBlack
-      Font.Color = clWhite
-      Font.Height = -16
-      ParentColor = False
-      Transparent = True
-    end
-  end
   object Panel1: TPanel
     Left = 0
     Top = 463
@@ -229,7 +208,7 @@ object Form1: TForm1
     Anchors = [akLeft, akRight, akBottom]
     BevelInner = bvRaised
     BevelOuter = bvNone
-    TabOrder = 3
+    TabOrder = 2
     object ScrollBar1: TScrollBar
       Left = 1
       Top = 1
@@ -256,7 +235,7 @@ object Form1: TForm1
     Caption = 'Panel2'
     Ctl3D = True
     ParentCtl3D = False
-    TabOrder = 4
+    TabOrder = 3
     object ScrollBar2: TScrollBar
       Left = 1
       Top = 1
@@ -279,7 +258,7 @@ object Form1: TForm1
     Height = 105
     Color = clBtnFace
     ParentColor = False
-    TabOrder = 5
+    TabOrder = 4
     Visible = False
     DesignSize = (
       409

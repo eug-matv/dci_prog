@@ -489,8 +489,24 @@ throw EIkoException ("Ошибка графического вывода",
    Xr=init.max_dalnost*sin(AL->dLastRadian);
    Yr=init.max_dalnost*cos(AL->dLastRadian);
 
-
-
+// Вывод времени
+   HFONT hFont, oldHFont;
+   if(bTimeOutVisible)
+   {
+           hFont = CreateFont(24,0,0,0,FW_DONTCARE,FALSE,FALSE,FALSE,
+             DEFAULT_CHARSET,OUT_OUTLINE_PRECIS,
+               CLIP_DEFAULT_PRECIS,CLEARTYPE_QUALITY,
+               VARIABLE_PITCH,TEXT("Courier New"));
+           if(hFont)
+           {
+                SetTextColor(DCPreOutput, RGB(255,255,255));
+                SetBkMode(DCPreOutput, TRANSPARENT);
+                oldHFont=(HFONT)SelectObject(DCPreOutput, hFont);
+                TextOutA(DCPreOutput,10,10,timeOutStr,  strlen(timeOutStr));
+                SelectObject(DCPreOutput, oldHFont);
+                DeleteObject(hFont);
+           }
+    }
 //Отобразить весь круговой обзор на область
    BitBlt(DC,left,top,szArea1.cx,szArea1.cy,DCPreOutput,0,0,SRCCOPY);
 //Опыт

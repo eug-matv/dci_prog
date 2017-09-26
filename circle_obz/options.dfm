@@ -2068,7 +2068,7 @@ object Form2: TForm2
           Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          ItemHeight = 13
+          ItemHeight = 0
           ParentFont = False
           TabOrder = 0
           Text = 'CBPortName'

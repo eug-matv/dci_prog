@@ -7,7 +7,6 @@
 USEFORM("circle_obz\MainRBZ.cpp", Form1);
 USEFORM("circle_obz\About.cpp", AboutBox);
 USEFORM("circle_obz\options.cpp", Form2);
-USEFORM("circle_obz\FrameTime.cpp", FTime); /* TFrame: File Type */
 USEFORM("circle_obz\Navigation.cpp", Form4);
 USEFORM("circle_obz\Debug.cpp", FDebug);
 USEFORM("circle_obz\MessageFrame.cpp", FMessage); /* TFrame: File Type */
