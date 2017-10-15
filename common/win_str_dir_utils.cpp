@@ -37,51 +37,60 @@ char* GetFullPathFileWithProgram(
 
 /*Создание пути если возможно*/
 
-int winMakePath(char *Path)
+int winMakePath(const char *Path)
 {
   int i,j=0;
   int D=1;
+  char path1[3000];
+
   int Dlina=strlen(Path);
+  if(Dlina > 2999)
+  {
+     return 0;
+  }
+
+  strcpy(path1, Path);
+
   char VremC;
   int Ret;
 //1 - разбить на под пути
   for(i=0;i<Dlina;i++)
   {
-     if(Path[i]=='\\')
+     if(path1[i]=='\\')
      {
         if(i==2)
         {
-          if(Path[1]=':')
+          if(path1[1]=':')
           {
              continue;
           }
         }
 //Проверим существование пути
-        VremC=Path[i];
-        Path[i]=0;
+        VremC=path1[i];
+        path1[i]=0;
         if(access(Path,00))
         {
 //Попробуем создатть
-           Ret=mkdir(Path);
+           Ret=mkdir(path1);
            if(Ret)
            {
 //Если не удачно был создан
-              Path[i]=VremC;
+              path1[i]=VremC;
               return 0;
            }
         }
-        Path[i]=VremC;
+        path1[i]=VremC;
      }
   }
-  
-//Создадим путь  
+
+//Создадим путь
   if(access(Path,00))
   {
-        Ret=mkdir(Path);
+        Ret=mkdir(path1);
         if(Ret)
         {
 //Если не удачно был создан
-              Path[i]=VremC;
+              path1[i]=VremC;
               return 0;
         }
   }

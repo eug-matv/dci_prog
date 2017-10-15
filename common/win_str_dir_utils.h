@@ -11,7 +11,7 @@ char* GetFullPathFileWithProgram(
                        int SizeOfStrka);
 
 
-int winMakePath(char *Path);
+int winMakePath(const char *Path);
 
 
 #endif

@@ -507,12 +507,12 @@ LSTR("The opportunity tracking is disabled",
   {
     MCO.Start(Handle,szArea,init);
     ModifyScrollBars();
-    strcpy(SSS.csPutKDannym, init.csFullPathToData);
-    strcpy(SSS_Filter.csPutKDannym, init.csFullPathToData);
-    strcpy(SSS.csPrefix,"plotout");
-    strcpy(SSS_Filter.csPrefix,"filtout");
-    strcpy(SSS.csExt,"txt");
-    strcpy(SSS_Filter.csExt, "txt");
+    SSS.csPutKDannym = string(init.csFullPathToData);
+    SSS_Filter.csPutKDannym =  string(init.csFullPathToData); 
+    SSS.csPrefix = string("plotout");
+    SSS_Filter.csPrefix = string("filtout");
+    SSS.csExt = string("txt");
+    SSS_Filter.csExt =  string("txt");
     SSS.bDataOutDOS=true;
     SSS.bVyvodAmpl=false;
     SSS.bSkorostOut=false;
@@ -534,9 +534,13 @@ LSTR("The opportunity tracking is disabled",
     if(Ret==-1)
     {
 #ifdef ENG_LANG      
-	  AnsiString Put=String("Not found directory ")+SSS.csPutKDannym+String(" to write data");
+	  AnsiString Put=String("Not found directory ")+
+             String(SSS.csPutKDannym.c_str())+
+             String(" to write data");
 #else
-      AnsiString Put=String("Не найден каталог ")+SSS.csPutKDannym+String(" для записи данных");
+      AnsiString Put=String("Не найден каталог ")+
+                String(SSS.csPutKDannym.c_str())+
+                String(" для записи данных");
 #endif
       FMessage1->ShowText(Put);
       SetFMessage1Size();
