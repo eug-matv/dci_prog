@@ -97,14 +97,16 @@ TAirplaneList::TAirplaneList(
 TAirplaneList::~TAirplaneList()
 {
 
-
   for(int i=0;i<12;i++)
   {
      for(int j=0;j<iMaxSize_apl[i];j++)
      {
 
-        if(j<iSize_apl[i]&&apl[i][j]->GetProbData) 
+/*        if(j<iSize_apl[i]&&apl[i][j]->GetProbData)
            delete ((TOcenkaVeroyatnosti*)(apl[i][j]->GetProbData));
+убрать вероятность           
+*/
+
         free(apl[i][j]);
      }
      if(apl[i])free(apl[i]);
@@ -114,9 +116,12 @@ TAirplaneList::~TAirplaneList()
   {
     for(int j=0;j<iMaxSize_temp_apl[0];j++)
     {
+/*
         if(j<iSize_temp_apl[0]&&
            temp_apl[0][j]->GetProbData)
           delete ((TOcenkaVeroyatnosti*)(temp_apl[0][j]->GetProbData));
+убрать вероятность          
+*/          
         free(temp_apl[0][j]);
     }
     free(temp_apl[0]);
@@ -125,9 +130,12 @@ TAirplaneList::~TAirplaneList()
   {
     for(int j=0;j<iMaxSize_temp_apl[1];j++)
     {
-        if(j<iSize_temp_apl[1]&&   
-           temp_apl[1][j]->GetProbData)   
+/*
+        if(j<iSize_temp_apl[1]&&
+           temp_apl[1][j]->GetProbData)
               delete ((TOcenkaVeroyatnosti*)(temp_apl[1][j]->GetProbData));
+убрать вероятность              
+*/
         free(temp_apl[1][j]);
     }
     free(temp_apl[1]);
@@ -180,7 +188,9 @@ if(temp_apl[i_retIndex]==NULL)throw EIkoException ("Memory allocation error",
 if(temp_apl[i_retIndex][i]==NULL)throw EIkoException ("Memory allocation error",
 "airoplanelist.cpp","TAirplaneList","AddTarget",
 "temp_apl[i_retIndex][i]=(airplane*)malloc(sizeof(airplane));");
+/* убрать вероятность пока
          temp_apl[i_retIndex][i]->GetProbData=NULL;
+*/
        }
        iMaxSize_temp_apl[i_retIndex]+=10;
 
@@ -260,8 +270,10 @@ if(temp_apl[i_retIndex][i]==NULL)throw EIkoException ("Memory allocation error",
        temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->DeleteIt=1;
        temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->WasTail=0;
     }
-
+/*
     temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->GetProbData=NULL;
+    убрать вероятность пока
+*/
 
 //А теперь надо добавить формулар
 /*
@@ -323,40 +335,46 @@ if(temp_apl[i_retIndex][i]==NULL)throw EIkoException ("Memory allocation error",
       }
       if(NaidAir)
       {
+    //   убрать вероятность пока
+  /*
          if(NaidAir->GetProbData)
          {
             ((TOcenkaVeroyatnosti*)(NaidAir->GetProbData))->AddOtmetka(
-         temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->type);
+                temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->type);
 
-         temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->GetProbData=
-            NaidAir->GetProbData;
-         if(NaidAir->GetProbData)
-         {
+                temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->GetProbData=
+                NaidAir->GetProbData;
+                if(NaidAir->GetProbData)
+                {
 //Скопируем данные на предыдущий объект типа
-           PD.Otmetka.N_of_MustPO=
+                 PD.Otmetka.N_of_MustPO=
         	 ((TOcenkaVeroyatnosti*)(NaidAir->GetProbData))->GetN_of_MustO(0);
-           PD.Otmetka.N_of_MustSO=
+                 PD.Otmetka.N_of_MustSO=
          	 ((TOcenkaVeroyatnosti*)(NaidAir->GetProbData))->GetN_of_MustO(1);
-           PD.Otmetka.N_of_PO=
+                 PD.Otmetka.N_of_PO=
         	 ((TOcenkaVeroyatnosti*)(NaidAir->GetProbData))->GetN_of_O(0);
-           PD.Otmetka.N_of_SO=
+                 PD.Otmetka.N_of_SO=
         	 ((TOcenkaVeroyatnosti*)(NaidAir->GetProbData))->GetN_of_O(1);
            PD.Otmetka.P_PO=
                 ((TOcenkaVeroyatnosti*)(NaidAir->GetProbData))->GetPropably(0);
            PD.Otmetka.P_SO=
                 ((TOcenkaVeroyatnosti*)(NaidAir->GetProbData))->GetPropably(1);
 
-        }
-          temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->FirstDirectionFormulyars=
-                 NaidAir->FirstDirectionFormulyars;
+                }
+
+  //      Убрать вероятность пока
+
 
       }
+    */
 
-
+         temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->FirstDirectionFormulyars=
+         NaidAir->FirstDirectionFormulyars;
 
 
 
       }else{
+/*
          TOcenkaVeroyatnosti *ppppp;
          ppppp=new TOcenkaVeroyatnosti(NomTrassy);
          if(ppppp)
@@ -374,6 +392,8 @@ if(temp_apl[i_retIndex][i]==NULL)throw EIkoException ("Memory allocation error",
            PD.Otmetka.P_PO=ppppp->GetPropably(0);
            PD.Otmetka.P_SO=ppppp->GetPropably(1);
       }
+      уберем пока оценку вероятности
+*/
 //Определим тут направление формуляра
          switch(temp_apl[i_retIndex][iSize_temp_apl[i_retIndex]]->sector30_number)
          {
@@ -816,17 +836,23 @@ int TAirplaneList::Swap_temp_apl(int i_tempIndex1)
                LastAirTail[Naid_j].IsDelete=1;
             }
 //Удалим объект указвающий на вероятность
+/*
             if(apl[k][i]->GetProbData)
             {
               delete ((TOcenkaVeroyatnosti*)(apl[k][i]->GetProbData));
               apl[k][i]->GetProbData=NULL;
             }
+            убрать вероятность пока
+*/
           }else{
             apl[k][i]->N_of_Propusk++;
+/*
             if(apl[k][i]->GetProbData)
             {
        ((TOcenkaVeroyatnosti*)(apl[k][i]->GetProbData))->AddOtmetka(10);
             }
+   убрать вероятность пока         
+*/
 //Установим отсчет который меняем
 //Переопределим размер
 
@@ -850,8 +876,10 @@ if(temp_apl[i_tempIndex1]==NULL)throw EIkoException ("Memory allocation error",
 if(temp_apl[i_tempIndex1][kp]==NULL)throw EIkoException ("Memory allocation error",
 "airoplanelist.cpp","TAirplaneList","Swap_temp_apl",
 "temp_apl[i_tempIndex1][kp]=(airplane*)malloc(sizeof(airplane));");
-
+/*
 temp_apl[i_tempIndex1][kp]->GetProbData=NULL;
+убрать вероятность пока
+*/
                 }
                 iMaxSize_temp_apl[i_tempIndex1]+=10;
             }

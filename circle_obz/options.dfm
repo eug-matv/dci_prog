@@ -1,6 +1,6 @@
 object Form2: TForm2
-  Left = 627
-  Top = 84
+  Left = 367
+  Top = 93
   Width = 549
   Height = 435
   BorderIcons = [biSystemMenu]
@@ -28,7 +28,7 @@ object Form2: TForm2
     Top = 0
     Width = 533
     Height = 359
-    ActivePage = TabSheet1
+    ActivePage = TabSheet3
     Align = alClient
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
@@ -37,7 +37,7 @@ object Form2: TForm2
     Font.Style = [fsBold]
     MultiLine = True
     ParentFont = False
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 0
     object TabSheet1: TTabSheet
       Caption = 'Azimuth-range scale'
@@ -1929,6 +1929,7 @@ object Form2: TForm2
           Width = 292
           Height = 17
           Caption = 'Probability of detection by the primary channel'
+          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -1943,6 +1944,7 @@ object Form2: TForm2
           Width = 252
           Height = 17
           Caption = 'Speed'
+          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -1971,6 +1973,7 @@ object Form2: TForm2
           Width = 268
           Height = 17
           Caption = 'Probability of detection by the secondary channel'
+          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -11
@@ -2068,7 +2071,7 @@ object Form2: TForm2
           Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
-          ItemHeight = 0
+          ItemHeight = 13
           ParentFont = False
           TabOrder = 0
           Text = 'CBPortName'

@@ -315,7 +315,11 @@ void Load_INI_f(struct initialization *init_struct,
 // LOAD_FROM_INI("FORMULAR","IsOutSKOPervKanal", init_struct->IsOutSKOPervKanal, "0");
 // LOAD_FROM_INI("FORMULAR","IsOutSKOVtorKanal", init_struct->IsOutSKOVtorKanal, "0");
 
-
+//Принудительно уберем скорость, отоборажение остатка топлива. и вероятностей
+  init_struct->IsOutSkorost = 0;
+  init_struct->IsOutOstatokTopliva = 0;
+  init_struct->IsOutVeroyatnostPervKanal = 0;
+  init_struct->IsOutVeroyatnostVtorKanal = 0;
 
  init_struct->N_of_Obzoror_for_prob1=30;
  init_struct->N_of_Obzoror_for_prob2=30;

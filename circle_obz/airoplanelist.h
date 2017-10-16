@@ -38,10 +38,6 @@ struct TLastAirTail
   long IsDelete;        //Не известно надо ли нет
   int   FirstDirectionFormulyars; //Направление для формуляра
 
-//Это скорее не надо чем надо
-  long N_of_P;          //Число отметок первичного канала
-  long N_of_S;          //Число отметок вторичного канала
-  long N_of_PS;         //Число объединенных отметок
 };
 
 

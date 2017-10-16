@@ -375,9 +375,11 @@ int formulyarTextOut(HDC DC,               //Дескриптер экрана
 
 
 
-
+/*
     TOcenkaVeroyatnosti *OV=(TOcenkaVeroyatnosti *)air.GetProbData;
-
+    убрать вероятность пока
+*/
+/*
    if(init.IsOutVeroyatnostPervKanal&&
      air.lNomerTrassy>0)
    {
@@ -416,7 +418,10 @@ int formulyarTextOut(HDC DC,               //Дескриптер экрана
         }
 
    }
-
+   убрать вероять пока
+ */
+/*
+   убрать вероятность
    if(init.IsOutVeroyatnostVtorKanal&&
      air.lNomerTrassy>0)
    {
@@ -453,6 +458,8 @@ int formulyarTextOut(HDC DC,               //Дескриптер экрана
             return 1;
       }
    }
+   убрать вероятность пока
+*/
    SetTextColor(DC,OldColour);
    SetBkMode(DC,OldBkMode);
    SelectObject(DC,OldFont);

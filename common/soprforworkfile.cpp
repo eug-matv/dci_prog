@@ -489,6 +489,7 @@ long __stdcall soprSaveToFileSever
 
   fstrm.setf(ios::left, ios::adjustfield);
   fstrm.width(64);
+  fstrm.fill(' ');
   fstrm << tmpStr;
   fstrm.setf(ios::right, ios::adjustfield);
 
