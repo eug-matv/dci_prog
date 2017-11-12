@@ -729,7 +729,7 @@ int TSoprSaveSession::Start(void)
   fstrm.setf(ios::right, ios::adjustfield);
 #ifdef ENG_LANG
 
-  fstrm <<  string("">>>   Start log : Time  ");
+  fstrm <<  string(">>>   Start log : Time  ");
 
   fstrm.width(2);
   fstrm.fill('0');
@@ -902,7 +902,7 @@ int  TSoprSaveSession::Stop(void)
   fstrm.setf(ios::right, ios::adjustfield);
 #ifdef ENG_LANG
 
-  fstrm << "">>>   End log : Time  ";
+  fstrm << ">>>   End log : Time  ";
 
   fstrm.width(2);
   fstrm.fill('0');
@@ -1090,7 +1090,7 @@ int TSoprSaveSession::SaveDataToFile(TPaketData &_PaketData)
     fstrm.setf(ios::right, ios::adjustfield);
 #ifdef ENG_LANG
 
-    fstrm <<  string("">>>   Start log : Time  ");
+    fstrm <<  string(">>>   Start log : Time  ");
 
     fstrm.width(2);
     fstrm.fill('0');

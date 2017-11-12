@@ -139,6 +139,10 @@ Item2=receive_from_com;common;circle_obz;C:\Program Files\Borland\CBuilder6\Proj
 Count=1
 Item0=$(BCB)\source\vcl
 
+[HistoryLists\hlConditionals]
+Count=1
+Item0=ENG_LANG
+
 [HistoryLists\hlIntOutputDir]
 Count=1
 Item0=temp
